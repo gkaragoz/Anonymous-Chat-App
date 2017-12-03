@@ -31,7 +31,19 @@ public class Player{
 	}
 #endregion
 
-#region Public_Methods
+	public Player(JSONObject playerData){
+		this._playerTalks = new List<Talk>();
 
-#endregion
+		this._playerId = int.Parse(playerData.GetString("player_id"));
+		this._playerName = playerData.GetString("player_nickname");
+		this._language = playerData.GetString("language");
+		this._createdDate = System.DateTime.Parse(playerData.GetString("created_date"));
+
+		for(int ii = 0; ii < playerData.GetField("player_talks").list.Count; ii++){
+			JSONObject currentTalkData = playerData.GetField("player_talks").list[ii];
+			Talk newTalk = new Talk(currentTalkData);
+
+			this._playerTalks.Add(newTalk);
+		}
+	}
 }
