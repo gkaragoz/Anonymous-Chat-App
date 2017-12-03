@@ -9,8 +9,8 @@ public class Message{
 	private int _messageId;
 	private string _body;
 	private System.DateTime _sendDate;
-	private Player _senderPlayer;
-	private Talk _talk;
+	private int _senderPlayerId;
+	private int _talkId;
 #endregion
 
 #region Public_Variables
@@ -26,12 +26,20 @@ public class Message{
 		get{	return _sendDate;	}
 	}
 
-	public Player senderPlayer{
-		get{	return _senderPlayer;	}
+	public int senderPlayerId{
+		get{	return _senderPlayerId;	}
 	}
 
-	public Talk talk{
-		get{	return _talk;		}
+	public int talkId{
+		get{	return _talkId;		}
 	}
 #endregion
+
+	public Message(JSONObject messageData){
+		this._messageId = int.Parse(messageData.GetString("message_id"));
+		this._body = messageData.GetString("body");
+		this._sendDate = System.DateTime.Parse(messageData.GetString("send_date"));
+		this._senderPlayerId = int.Parse(messageData.GetString("sender_id"));
+		this._talkId = int.Parse(messageData.GetString("talk_id"));
+	}
 }
