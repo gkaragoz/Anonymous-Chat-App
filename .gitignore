@@ -13,3 +13,4 @@ VSCode/
 *.DS_Store
 */*.DS_Store
 *.userprefs
+*/UnityPackageManager/
