@@ -330,7 +330,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0 / 100
+  m_Text: 0 / 15
 --- !u!222 &218266641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -802,7 +802,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 100
+  m_CharacterLimit: 15
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MatchOrientationToScreen: 1
   m_ScaleFactor: 1.8
-  m_LastResolution: {x: 562, y: 957}
+  m_LastResolution: {x: 1080, y: 1920}
 --- !u!114 &973422427
 MonoBehaviour:
   m_ObjectHideFlags: 0
