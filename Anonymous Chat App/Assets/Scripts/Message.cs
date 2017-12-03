@@ -9,6 +9,7 @@ public class Message{
 	private int _messageId;
 	private string _body;
 	private System.DateTime _sendDate;
+	private Player _senderPlayer;
 	private Talk _talk;
 #endregion
 
@@ -23,6 +24,10 @@ public class Message{
 
 	public System.DateTime sendDate{
 		get{	return _sendDate;	}
+	}
+
+	public Player senderPlayer{
+		get{	return _senderPlayer;	}
 	}
 
 	public Talk talk{
