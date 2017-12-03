@@ -7,8 +7,8 @@ public class Talk{
 
 #region Private_Variables
 	private int _talkId;
-	private Player _recieverPlayer;
-	private Player _senderPlayer;
+	private int _recieverPlayerId;
+	private int _senderPlayerId;
 	private List<Message> _talkMessages;
 #endregion
 
@@ -17,16 +17,31 @@ public class Talk{
 		get{	return _talkId;				}
 	}
 
-	public Player recieverPlayer{
-		get{	return _recieverPlayer;		}
+	public int recieverPlayerId{
+		get{	return _recieverPlayerId;		}
 	}
 
-	public Player senderPlayer{
-		get{	return _senderPlayer;		}
+	public int senderPlayerId{
+		get{	return _senderPlayerId;		}
 	}
 
 	public Message[] talkMessages{
 		get{	return _talkMessages.OrderByDescending(a=>a.sendDate).ToArray();	}
 	}
 #endregion
+
+	public Talk(JSONObject talkData){
+		this._talkMessages = new List<Message>();
+		
+		this._talkId = int.Parse(talkData.GetString("talk_id"));
+		this._recieverPlayerId = int.Parse(talkData.GetString("reciver_id"));
+		this._senderPlayerId = int.Parse(talkData.GetString("sender_id"));
+
+		for(int ii = 0; ii< talkData.GetField("talk_messages").list.Count; ii++){
+			JSONObject currentMessage = talkData.GetField("talk_messages").list[ii];
+			Message newMessage = new Message(currentMessage);
+
+			this._talkMessages.Add(newMessage);
+		}
+	}
 }
