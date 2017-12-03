@@ -9,6 +9,7 @@ public class Talk{
 	private int _talkId;
 	private Player _recieverPlayer;
 	private Player _senderPlayer;
+	private List<Message> _talkMessages;
 #endregion
 
 #region Public_Variables
@@ -23,6 +24,9 @@ public class Talk{
 	public Player senderPlayer{
 		get{	return _senderPlayer;		}
 	}
-	
+
+	public Message[] talkMessages{
+		get{	return _talkMessages.OrderByDescending(a=>a.sendDate).ToArray();	}
+	}
 #endregion
 }
