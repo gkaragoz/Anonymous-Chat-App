@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MatchOrientationToScreen: 1
   m_ScaleFactor: 1.8
-  m_LastResolution: {x: 1080, y: 1920}
+  m_LastResolution: {x: 1124, y: 957}
 --- !u!114 &973422427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,10 +1668,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 25
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: -65
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2643,5 +2643,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 32, y: -17.333334}
-  m_SizeDelta: {x: -80, y: -17.333334}
+  m_SizeDelta: {x: -80, y: -17.333237}
   m_Pivot: {x: 0, y: 1}
