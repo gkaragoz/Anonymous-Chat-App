@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ public class Player{
 	private string _playerName;
 	private string _language;
 	private System.DateTime _createdDate;
+	private List<Talk> _playerTalks;
 #endregion
 
 #region Public_Variables
@@ -22,6 +24,10 @@ public class Player{
 
 	public string language{
 		get{	return _language;	}
+	}
+
+	public Talk[] playerTalks{
+		get{	return _playerTalks.ToArray();	}
 	}
 #endregion
 
