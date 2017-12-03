@@ -411,7 +411,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 109231446}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1086,7 +1086,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0.9137255, g: 0.11764706, b: 0.3882353, a: 1}
+  m_SelectionColor: {r: 0, g: 0.7372549, b: 0.8313726, a: 1}
   m_Text: 
   m_CaretBlinkRate: 1.7
   m_CaretWidth: 1
@@ -2005,7 +2005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MatchOrientationToScreen: 1
   m_ScaleFactor: 1.8
-  m_LastResolution: {x: 1291, y: 957}
+  m_LastResolution: {x: 1080, y: 1920}
 --- !u!114 &973422427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4851,7 +4851,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 32, y: -17.333334}
-  m_SizeDelta: {x: -80, y: -34.66667}
+  m_SizeDelta: {x: -80, y: -34.666668}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1824355899
 GameObject:
