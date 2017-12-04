@@ -15,6 +15,26 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: Anonymus-ChatApp-DB; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Anonymus-ChatApp-DB" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Turkish_Turkey.1254' LC_CTYPE = 'Turkish_Turkey.1254';
+
+
+ALTER DATABASE "Anonymus-ChatApp-DB" OWNER TO postgres;
+
+\connect -reuse-previous=on "dbname='Anonymus-ChatApp-DB'"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -55,8 +75,8 @@ ALTER TABLE "Account" OWNER TO postgres;
 
 CREATE TABLE "AccountExpiration" (
     "ID" integer NOT NULL,
-    "StartDate" date NOT NULL,
-    "EndDate" date NOT NULL
+    "StartDate" date,
+    "EndDate" date
 );
 
 
@@ -335,12 +355,19 @@ ALTER TABLE ONLY "User" ALTER COLUMN "ID" SET DEFAULT nextval('"User_ID_seq"'::r
 -- Data for Name: Account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "Account" VALUES (1, 1, 1, 1, 0);
+INSERT INTO "Account" VALUES (2, 2, 1, 1, 1);
+INSERT INTO "Account" VALUES (3, 3, 2, 1, 2);
+INSERT INTO "Account" VALUES (4, 4, 2, 1, 2);
+INSERT INTO "Account" VALUES (5, 5, 2, 1, 2);
+INSERT INTO "Account" VALUES (6, 6, 2, 1, 2);
 
 
 --
 -- Data for Name: AccountExpiration; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "AccountExpiration" VALUES (1, '2001-01-01', '2001-01-01');
 
 
 --
@@ -354,20 +381,26 @@ SELECT pg_catalog.setval('"AccountExpiration_ID_seq"', 1, false);
 -- Name: Account_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Account_ID_seq"', 1, false);
+SELECT pg_catalog.setval('"Account_ID_seq"', 6, true);
 
 
 --
 -- Data for Name: Limits; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "Limits" VALUES (1, 1, 1);
+INSERT INTO "Limits" VALUES (2, 3, 1);
+INSERT INTO "Limits" VALUES (3, 7, 3);
+INSERT INTO "Limits" VALUES (4, 9, 4);
+INSERT INTO "Limits" VALUES (5, 12, 5);
+INSERT INTO "Limits" VALUES (6, 15, 7);
 
 
 --
 -- Name: Limits_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Limits_ID_seq"', 1, false);
+SELECT pg_catalog.setval('"Limits_ID_seq"', 6, true);
 
 
 --
@@ -387,13 +420,15 @@ SELECT pg_catalog.setval('"Message_ID_seq"', 1, false);
 -- Data for Name: Prices; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "Prices" VALUES (1, 0, 0, 0, 0);
+INSERT INTO "Prices" VALUES (2, 0.97999999999999998, 5.9800000000000004, 19.98, 48.979999999999997);
 
 
 --
 -- Name: Prices_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Prices_ID_seq"', 1, false);
+SELECT pg_catalog.setval('"Prices_ID_seq"', 2, true);
 
 
 --
