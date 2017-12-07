@@ -54,4 +54,8 @@ public class Talk{
 	public void EnterTalk(){
 		ChatPanelManager.instance.OpenConversation(this);
 	}
+
+	public void CloseTalk(){
+		MessagesPoolSystem.instance.Reset();
+	}
 }
