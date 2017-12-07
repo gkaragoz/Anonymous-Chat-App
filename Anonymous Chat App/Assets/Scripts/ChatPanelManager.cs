@@ -19,7 +19,7 @@ public class ChatPanelManager{
 	private Transform talksScreen;
 	private Transform talksParent;
 	private Transform conversationScreen;
-	private Transform messagesParent;
+	public Transform messagesParent;
 
 	public ChatPanelManager(Player user){
 		this._user = user;
@@ -53,7 +53,15 @@ public class ChatPanelManager{
 
 	public void OpenConversation(Talk conversation){
 		this.talksScreen.gameObject.SetActive(false);
-
+		for(int ii = 0; ii < conversation.talkMessages.Length; ii++){
+			Message currentMessage = conversation.talkMessages[ii];
+			if(currentMessage.isMe){
+				currentMessage.InitMessage(MessagesPoolSystem.instance.GetAvaibleMyMessage(), conversation.talkMessages.Length - ii - 1);
+			}else{
+				currentMessage.InitMessage(MessagesPoolSystem.instance.GetAvaibleotherUsersMessage(), conversation.talkMessages.Length - ii - 1);
+			}	
+		}
+		this.conversationScreen.gameObject.SetActive(true);
 	}
 }
 
@@ -67,11 +75,13 @@ public class MessagesPoolSystem{
 		this.messages = new List<MessagePrefab>();
 
 		for(int ii = 0; ii < poolSystem.GetChildCount(); ii++){
-			Transform currentChild = poolSystem.GetChild(0);
+			Transform currentChild = poolSystem.GetChild(ii);
 			if(currentChild.GetComponent<MessagePrefab>()){
 				this.messages.Add(currentChild.GetComponent<MessagePrefab>());
 			}
 		}
+
+		instance = this;
 	}
 
 	public MessagePrefab GetAvaibleMyMessage(){
