@@ -11,6 +11,8 @@ public class AppManager : MonoBehaviour{
 
 	public Transform poolSystemParent;
 	
+	public Talk currentTalk;
+
 	public AppStatus appStatus;
 	public enum AppStatus{
 		LOGIN,
@@ -29,5 +31,13 @@ public class AppManager : MonoBehaviour{
 
 		new MessagesPoolSystem(poolSystemParent);
 		new ChatPanelManager(me);
+	}
+
+	private void FixedUpdate(){
+		if(this.appStatus == AppStatus.CONVERSATION){
+			if(Input.GetKeyDown(KeyCode.Escape) && this.currentTalk != null){
+				ChatPanelManager.instance.OpenTalksScreen();
+			}
+		}
 	}
 }
