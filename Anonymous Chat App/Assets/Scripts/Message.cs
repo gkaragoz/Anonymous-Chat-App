@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Message{
 
@@ -48,5 +49,13 @@ public class Message{
 		this._sendDate = System.DateTime.Parse(messageData.GetString("send_date"));
 		this._senderPlayerId = int.Parse(messageData.GetString("sender_id"));
 		this._talkId = int.Parse(messageData.GetString("talk_id"));
+	}
+
+	public void InitMessage(MessagePrefab messageObj, int index){
+		messageObj.isUsing = true;
+		messageObj.msjText.text = this.body;
+		messageObj.transform.SetParent(ChatPanelManager.instance.messagesParent);
+		messageObj.transform.localPosition = new Vector3(0, 0 - 100 * index, 0);
+		messageObj.transform.eulerAngles = Vector3.zero;
 	}
 }
