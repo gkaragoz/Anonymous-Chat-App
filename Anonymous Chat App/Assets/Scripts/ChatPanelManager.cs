@@ -55,6 +55,8 @@ public class ChatPanelManager{
 
 	public void OpenConversation(Talk conversation){
 		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
+		AppManager.instance.currentTalk = conversation;
+
 		this.talksScreen.gameObject.SetActive(false);
 		for(int ii = 0; ii < conversation.talkMessages.Length; ii++){
 			Message currentMessage = conversation.talkMessages[ii];
@@ -66,6 +68,14 @@ public class ChatPanelManager{
 		}
 		this.conversationScreen.gameObject.SetActive(true);
 	}
+
+	public void OpenTalksScreen(){
+		AppManager.instance.currentTalk.CloseTalk();
+		AppManager.instance.currentTalk = null;
+		this.conversationScreen.gameObject.SetActive(false);
+		this.talksScreen.gameObject.SetActive(true);
+		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
+	}
 }
 
 public class MessagesPoolSystem{
@@ -73,8 +83,10 @@ public class MessagesPoolSystem{
 	public static MessagesPoolSystem instance;
 
 	private List<MessagePrefab> messages;
+	private Transform poolSystemParent;
 
 	public MessagesPoolSystem(Transform poolSystem){
+		this.poolSystemParent = poolSystem;
 		this.messages = new List<MessagePrefab>();
 
 		for(int ii = 0; ii < poolSystem.GetChildCount(); ii++){
@@ -93,5 +105,14 @@ public class MessagesPoolSystem{
 
 	public MessagePrefab GetAvaibleotherUsersMessage(){
 		return this.messages.Where(a=>a.isUsing == false && a.myMessage == false).FirstOrDefault();
+	}
+
+	public void Reset(){
+		MessagePrefab[] usingPrefabs = this.messages.Where(a=>a.isUsing == true).ToArray();
+
+		foreach(MessagePrefab p in usingPrefabs){
+			p.isUsing = false;
+			p.transform.SetParent(this.poolSystemParent);
+		}
 	}
 }
