@@ -50,4 +50,35 @@ public class ChatPanelManager{
 			newConversation.eulerAngles = Vector3.zero;
 		}
 	}
+
+	public void OpenConversation(Talk conversation){
+		this.talksScreen.gameObject.SetActive(false);
+
+	}
+}
+
+public class MessagesPoolSystem{
+
+	public static MessagesPoolSystem instance;
+
+	private List<MessagePrefab> messages;
+
+	public MessagesPoolSystem(Transform poolSystem){
+		this.messages = new List<MessagePrefab>();
+
+		for(int ii = 0; ii < poolSystem.GetChildCount(); ii++){
+			Transform currentChild = poolSystem.GetChild(0);
+			if(currentChild.GetComponent<MessagePrefab>()){
+				this.messages.Add(currentChild.GetComponent<MessagePrefab>());
+			}
+		}
+	}
+
+	public MessagePrefab GetAvaibleMyMessage(){
+		return this.messages.Where(a=>a.isUsing == false && a.myMessage == true).FirstOrDefault();
+	}
+
+	public MessagePrefab GetAvaibleotherUsersMessage(){
+		return this.messages.Where(a=>a.isUsing == false && a.myMessage == false).FirstOrDefault();
+	}
 }
