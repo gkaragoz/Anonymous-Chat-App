@@ -7,9 +7,13 @@ using UnityEngine;
 
 public class AppManager : MonoBehaviour{
 
+	public static AppManager instance;
+
 	public Transform poolSystemParent;
 
 	private void Awake(){
+		instance = this;
+		
 		TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
 		JSONObject playerJson = new JSONObject(playerData.text);
 
