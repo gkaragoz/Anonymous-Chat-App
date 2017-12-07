@@ -40,6 +40,8 @@ public class ChatPanelManager{
 	public void InitializeTalksScreen(){
 		if(this.user == null)		return;
 
+		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
+
 		for(int ii = 0; ii < this.user.playerTalks.Length; ii++){
 			Talk currentTalk = this.user.playerTalks[ii];
 			Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
@@ -52,6 +54,7 @@ public class ChatPanelManager{
 	}
 
 	public void OpenConversation(Talk conversation){
+		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
 		this.talksScreen.gameObject.SetActive(false);
 		for(int ii = 0; ii < conversation.talkMessages.Length; ii++){
 			Message currentMessage = conversation.talkMessages[ii];
