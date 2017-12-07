@@ -16,14 +16,22 @@ public class ChatPanelManager{
 	}
 
 	private Transform canvas;
+	private Transform talksScreen;
 	private Transform talksParent;
+	private Transform conversationScreen;
+	private Transform messagesParent;
 
 	public ChatPanelManager(Player user){
 		this._user = user;
 		instance = this;
 
 		this.canvas = GameObject.Find("Canvas").transform;
-		this.talksParent = this.canvas.Find("TalksScreen").Find("TalksListSection").GetChild(0).GetChild(0);
+		
+		this.talksScreen = this.canvas.Find("TalksScreen");
+		this.talksParent = this.talksScreen.Find("TalksListSection").GetChild(0).GetChild(0);
+
+		this.conversationScreen = this.canvas.Find("ConversationScreen");
+		this.messagesParent = this.conversationScreen.Find("MessagesParent");
 
 		Debug.Log(this.canvas +  " : " + this.talksParent);
 		InitializeTalksScreen();
