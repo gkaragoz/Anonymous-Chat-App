@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MessagePrefab : MonoBehaviour{
 
 	public bool myMessage;
-	public bool isUsing = false;
+	public bool isUsing;
 	
 	public Text msjText;
 }
