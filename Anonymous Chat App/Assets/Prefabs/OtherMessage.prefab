@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myMessage: 0
+  isUsing: 0
   msjText: {fileID: 114270351223015496}
 --- !u!114 &114270351223015496
 MonoBehaviour:
@@ -231,8 +232,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1055608217347440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -222.75232, y: 18.227173, z: 0}
+  m_LocalScale: {x: 0.47344, y: 0.47344, z: 0.47344}
   m_Children:
   - {fileID: 224013348142910726}
   - {fileID: 224316010109574542}
@@ -241,6 +242,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -222.75232, y: 18.227173}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
