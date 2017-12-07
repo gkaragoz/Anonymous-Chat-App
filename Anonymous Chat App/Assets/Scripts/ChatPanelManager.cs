@@ -35,7 +35,7 @@ public class ChatPanelManager{
 		for(int ii = 0; ii < this.user.playerTalks.Length; ii++){
 			Talk currentTalk = this.user.playerTalks[ii];
 			Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
-			// newConversation.Find("talk_button").GetComponent<Button>().onClick();
+			newConversation.Find("talk_button").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
 			newConversation.Find("user_name").GetComponent<Text>().text = currentTalk.recieverName;
 			newConversation.SetParent(this.talksParent);
 			newConversation.localPosition = Vector3.zero + new Vector3(532,-175 * ii,0);
