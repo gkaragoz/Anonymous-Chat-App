@@ -19,9 +19,23 @@
 				},
 				{
 					"message_id": 1,
+					"body": "Helooo",
+					"send_date": "12/3/2017 4:58:15 PM",
+					"sender_id": 1,
+					"talk_id": 0
+				},
+				{
+					"message_id": 2,
 					"body": "Hacı naber",
-					"send_date": "12/3/2017 4:57:22 PM",
+					"send_date": "12/3/2017 4:59:22 PM",
 					"sender_id": 0,
+					"talk_id": 0
+				},
+				{
+					"message_id": 3,
+					"body": "Ne olsun gülüm seni sormalı",
+					"send_date": "12/3/2017 5:01:15 PM",
+					"sender_id": 1,
 					"talk_id": 0
 				}
 			]
