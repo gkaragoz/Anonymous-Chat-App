@@ -33,6 +33,13 @@ public class Message{
 	public int talkId{
 		get{	return _talkId;		}
 	}
+
+	public bool isMe{
+		get{
+			return this.senderPlayerId == ChatPanelManager.instance.user.playerId ? true : false;
+		}
+	}
+	
 #endregion
 
 	public Message(JSONObject messageData){
