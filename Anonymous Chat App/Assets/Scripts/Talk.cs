@@ -50,4 +50,8 @@ public class Talk{
 			this._talkMessages.Add(newMessage);
 		}
 	}
+
+	public void EnterTalk(){
+		ChatPanelManager.instance.OpenConversation(this);
+	}
 }
