@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class AppManager : MonoBehaviour{
 
+	public Transform poolSystemParent;
+
 	private void Awake(){
 		TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
 		JSONObject playerJson = new JSONObject(playerData.text);
@@ -14,6 +16,7 @@ public class AppManager : MonoBehaviour{
 		Player me = new Player(playerJson);
 		Debug.Log(me.playerName + " : " + me.playerId + " : " + me.playerTalks.Length);
 
+		new MessagesPoolSystem(poolSystemParent);
 		new ChatPanelManager(me);
 	}
 }
