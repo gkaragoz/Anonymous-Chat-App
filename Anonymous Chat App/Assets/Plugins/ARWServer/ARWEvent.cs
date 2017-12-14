@@ -4,12 +4,12 @@ using ARW.SRP;
 
 namespace ARW.Events{
 
-	public delegate void EventHandler(ARWObject evntObj, object eventParam = null);
+	public delegate void ARWEventHandler(ARWObject evntObj, object eventParam = null);
 	public delegate void PrivateHandler(ARWObject arwObject, SpecialRequestParam specialRequestParams);
 
 	public class ARWEvent
 	{
-		public EventHandler handler;
+		public ARWEventHandler handler;
 		public PrivateHandler p_handler;
 		public string eventName;
 

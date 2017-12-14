@@ -122,11 +122,11 @@ namespace ARW{
 			this.SendRequest(loginRequest);
 		}
 
-		public void AddEventHandlers(ARWEvent arwEvent, ARW.Events.EventHandler eventHandler){
+		public void AddEventHandlers(ARWEvent arwEvent, ARWEventHandler eventHandler){
 			arwEvent.handler += eventHandler;
 		}
 
-		public void AddExtensionRequest(string cmd, EventHandler handler){
+		public void AddExtensionRequest(string cmd, ARWEventHandler handler){
 			if(this.extensionRequests == null)		this.extensionRequests = new List<ExtensionRequest>();
 
 			ExtensionRequest ex = this.extensionRequests.Where(a=>a.cmd == cmd).FirstOrDefault();
