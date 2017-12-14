@@ -41,7 +41,8 @@ namespace ARW.Events{
 			DISCONNECTION.p_handler 	+= privateHandlers.P_Disconnection;
 
 			EXTENSION_REQUEST 			= new ARWEvent (ARWServer_CMD.Extension_Request);
-
+			EXTENSION_REQUEST.p_handler += privateHandlers.P_Extension_Response;
+			
 			LOGIN 						= new ARWEvent (ARWServer_CMD.Login);
 			LOGIN.p_handler 			+= privateHandlers.P_Login;
 			

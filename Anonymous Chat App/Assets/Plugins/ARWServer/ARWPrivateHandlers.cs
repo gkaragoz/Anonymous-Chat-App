@@ -4,12 +4,12 @@ using ARW;
 using ARW.Com;
 using ARW.Events;
 using ARW.Requests;
+using ARW.Requests.Extensions;
 using ARW.SRP;
 using ARW.Users;
 using ARW.Users.Manager;
 using ARW.Room;
 using ARW.Room.Manager;
-
 namespace ARW.PrivateHandlers
 {
 	public class PrivateEventHandlers
@@ -100,6 +100,13 @@ namespace ARW.PrivateHandlers
 			if(ARWEvents.USER_EXIT_ROOM.handler == null)		return;
 
 			ARWEvents.USER_EXIT_ROOM.handler(obj, userLeaved);
+		}
+
+		public void P_Extension_Response(ARWObject obj, SpecialRequestParam specialReqParam){
+			ExtensionRequest currentExtension = ARWServer.instance.GetExtensionRequest(specialReqParam.GetString("cmd"));
+			if(currentExtension == null)		return;
+
+			currentExtension.handler(obj);
 		}
 	}
 }

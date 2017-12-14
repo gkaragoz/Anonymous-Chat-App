@@ -17,6 +17,7 @@ using ARW.Users;
 using ARW.Users.Manager;
 using ARW.Room;
 using ARW.Room.Manager;
+using ARW.Requests.Extensions;
 
 namespace ARW{
 	
@@ -38,6 +39,7 @@ namespace ARW{
 		private TcpListener tcpListener;
 
 		private RequestManager requestManager;
+		private List<ExtensionRequest> extensionRequests;
 
 		private DateTime firstServerTime;
 		private DateTime _serverTime;
@@ -100,6 +102,18 @@ namespace ARW{
 			catch(System.OutOfMemoryException){}
 		}
 
+		public void SendExtensionRequest(string cmd, ARWObject obj, bool roomRequest){
+			SpecialRequestParam reqSpParam = new SpecialRequestParam();
+			reqSpParam.PutVariable("cmd", cmd);
+			reqSpParam.PutVariable("isRoom", roomRequest);
+			if(roomRequest){
+				reqSpParam.PutVariable("room_id", ARWUserManager.instance.me.lastJoinedRoom);
+			}
+
+			Request newRequest = new Request(ARWServer_CMD.Extension_Request, obj, reqSpParam);
+			this.SendRequest(newRequest);
+		}
+
 		public void SendLoginRequest(string userName, ARWObject arwObject){
 			SpecialRequestParam loginParam = new SpecialRequestParam();
 			loginParam.PutVariable("user_name", userName);
@@ -112,6 +126,19 @@ namespace ARW{
 			arwEvent.handler += eventHandler;
 		}
 
+		public void AddExtensionRequest(string cmd, EventHandler handler){
+			if(this.extensionRequests == null)		this.extensionRequests = new List<ExtensionRequest>();
+
+			ExtensionRequest ex = this.extensionRequests.Where(a=>a.cmd == cmd).FirstOrDefault();
+			if(ex == null){
+				this.extensionRequests.Add(new ExtensionRequest(cmd, handler));
+			}
+		}
+
+		public ExtensionRequest GetExtensionRequest(string cmd){
+			return this.extensionRequests.Where(a=>a.cmd == cmd).FirstOrDefault();
+		}
+		
 		public void Disconnection(){
 			if(!this.isConnected || this.tcpClient == null )	return;
 
