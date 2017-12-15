@@ -45,7 +45,7 @@ namespace ARW.Com
 				return entry.Value.Value.ToString();
 			}catch(System.NullReferenceException e){
 				Console.WriteLine ("There was nothing like " + key);
-			}
+			}catch(System.InvalidOperationException e){}
 
 			return string.Empty;
 		}

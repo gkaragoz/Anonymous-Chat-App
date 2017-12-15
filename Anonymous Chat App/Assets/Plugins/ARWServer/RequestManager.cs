@@ -25,7 +25,6 @@ namespace ARW.Requests.Manager{
 				return;
 			}
 
-			// UnityEngine.Debug.Log("==========> " + this.wrondData);
 			Request inComingReques = Request.Extract(wrondData);
 			DoRequest(inComingReques);
 			this.beginReq = false;

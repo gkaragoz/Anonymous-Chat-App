@@ -136,7 +136,8 @@ namespace ARW{
 		}
 
 		public ExtensionRequest GetExtensionRequest(string cmd){
-			return this.extensionRequests.Where(a=>a.cmd == cmd).FirstOrDefault();
+			ExtensionRequest ex = this.extensionRequests.Where(a=>a.cmd == cmd).FirstOrDefault();
+			return ex;
 		}
 		
 		public void Disconnection(){
