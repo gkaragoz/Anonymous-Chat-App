@@ -10,7 +10,7 @@ public class Message{
 	private int _messageId;
 	private string _body;
 	private System.DateTime _sendDate;
-	private int _senderPlayerId;
+	private string _senderPlayerId;
 	private int _talkId;
 #endregion
 
@@ -27,7 +27,7 @@ public class Message{
 		get{	return _sendDate;	}
 	}
 
-	public int senderPlayerId{
+	public string senderPlayerId{
 		get{	return _senderPlayerId;	}
 	}
 
@@ -47,7 +47,7 @@ public class Message{
 		this._messageId = int.Parse(messageData.GetString("message_id"));
 		this._body = messageData.GetString("body");
 		this._sendDate = System.DateTime.Parse(messageData.GetString("send_date"));
-		this._senderPlayerId = int.Parse(messageData.GetString("sender_id"));
+		this._senderPlayerId = messageData.GetString("sender_id");
 		this._talkId = int.Parse(messageData.GetString("talk_id"));
 	}
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Player{
 
 #region Private_Variables
-	private int _playerId;
+	private string _playerId;
 	private string _playerName;
 	private string _language;
 	private System.DateTime _createdDate;
@@ -14,7 +14,7 @@ public class Player{
 #endregion
 
 #region Public_Variables
-	public int playerId{
+	public string playerId{
 		get{	return _playerId;	}
 	}
 
@@ -34,10 +34,10 @@ public class Player{
 	public Player(JSONObject playerData){
 		this._playerTalks = new List<Talk>();
 
-		this._playerId = int.Parse(playerData.GetString("player_id"));
+		this._playerId = playerData.GetString("player_id");
 		this._playerName = playerData.GetString("player_nickname");
 		this._language = playerData.GetString("language");
-		this._createdDate = System.DateTime.Parse(playerData.GetString("created_date"));
+		// this._createdDate = System.DateTime.Parse(playerData.GetString("created_date"));
 
 		for(int ii = 0; ii < playerData.GetField("player_talks").list.Count; ii++){
 			JSONObject currentTalkData = playerData.GetField("player_talks").list[ii];

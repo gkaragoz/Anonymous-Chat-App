@@ -33,7 +33,6 @@ public class ChatPanelManager{
 		this.conversationScreen = this.canvas.Find("ConversationScreen");
 		this.messagesParent = this.conversationScreen.Find("MessagesParent");
 
-		Debug.Log(this.canvas +  " : " + this.talksParent);
 		InitializeTalksScreen();
 	}
 	
