@@ -15,6 +15,8 @@ public class AppManager : MonoBehaviour{
 
 	public AppStatus appStatus;
 	public enum AppStatus{
+		None,
+		Connection,
 		LOGIN,
 		TALK_SCREEN,
 		CONVERSATION
@@ -23,9 +25,11 @@ public class AppManager : MonoBehaviour{
 	private void Awake(){
 		instance = this;
 
-		TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
-		JSONObject playerJson = new JSONObject(playerData.text);
+		// TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
+	}
 
+	public void InitPlayer(string playerData){
+		JSONObject playerJson = new JSONObject(playerData);
 		Player me = new Player(playerJson);
 		Debug.Log(me.playerName + " : " + me.playerId + " : " + me.playerTalks.Length);
 
