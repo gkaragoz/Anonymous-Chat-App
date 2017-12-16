@@ -46,7 +46,7 @@ public class ChatPanelManager{
 			Talk currentTalk = this.user.playerTalks[ii];
 			Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
 			newConversation.Find("talk_button").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
-			newConversation.Find("user_name").GetComponent<Text>().text = currentTalk.recieverName;
+			newConversation.Find("user_name").GetComponent<Text>().text = currentTalk.receiverName;
 			newConversation.SetParent(this.talksParent);
 			newConversation.localPosition = Vector3.zero + new Vector3(532,-175 * ii,0);
 			newConversation.eulerAngles = Vector3.zero;
