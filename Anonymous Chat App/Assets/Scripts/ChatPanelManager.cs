@@ -19,6 +19,7 @@ public class ChatPanelManager{
 	private Transform talksScreen;
 	private Transform talksParent;
 	private Transform conversationScreen;
+	private Button newConversationButton;
 	public Transform messagesParent;
 
 	public ChatPanelManager(Player user){

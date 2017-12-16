@@ -9,7 +9,7 @@ public class Talk{
 	private int _talkId;
 	private int _recieverPlayerId;
 	private int _senderPlayerId;
-	private string _recieverName;
+	private string _receiverName;
 	private List<Message> _talkMessages;
 #endregion
 
@@ -26,8 +26,8 @@ public class Talk{
 		get{	return _senderPlayerId;		}
 	}
 
-	public string recieverName{
-		get{	return _recieverName;		}
+	public string receiverName{
+		get{	return _receiverName;		}
 	}
 
 	public Message[] talkMessages{
@@ -41,7 +41,7 @@ public class Talk{
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
 		this._recieverPlayerId = int.Parse(talkData.GetString("reciver_id"));
 		this._senderPlayerId = int.Parse(talkData.GetString("sender_id"));
-		this._recieverName = talkData.GetString("reciever_name");
+		this._receiverName = talkData.GetString("receiver_name");
 		
 		for(int ii = 0; ii< talkData.GetField("talk_messages").list.Count; ii++){
 			JSONObject currentMessage = talkData.GetField("talk_messages").list[ii];
