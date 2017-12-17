@@ -95,6 +95,7 @@ public class AppManager : MonoBehaviour{
 
 	public void InitPlayer(string playerData){
 		JSONObject playerJson = new JSONObject(playerData);
+		Debug.Log(playerData);
 		Player me = new Player(playerJson);
 		Debug.Log(me.playerName + " : " + me.playerId + " : " + me.playerTalks.Length);
 		PlayerPrefs.SetString("playerName", me.playerName);
