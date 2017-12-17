@@ -27,6 +27,7 @@ public class ServerManager : MonoBehaviour{
 		instance = this;
 	}
 
+	public bool canLogin = false;
 	public void Init(){
 		arwServer = new ARWServer();
 		arwServer.Init();
@@ -52,20 +53,21 @@ public class ServerManager : MonoBehaviour{
 	private void OnConnectionSuccess(ARWObject obj, object value){
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
-
-		arwServer.SendLoginRequest(AppManager.instance.googlePlayAccountId, null);
 	}
 
-	private void OnLoginSuccess(ARWObject obj, object value){
+	private void OnLoginSuccess(ARWObject arwObj, object value){
 		Debug.Log("Login Success");
-		Debug.Log("Sending GetUserData Request");
+		this.canLogin = true;
 
-		obj = new IARWObject();
-		obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
-		obj.PutString("player_nickname", "powerLED");
-		obj.PutString("language", Application.systemLanguage.ToString());
-
-		arwServer.SendExtensionRequest("GetUserData", obj, false);
+		if(PlayerPrefs.GetString("playerName") == ""){
+			ChatPanelManager.instance.welcomeScreen.gameObject.SetActive(true);
+		}else{
+			ARWObject obj = new IARWObject();
+			obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
+			obj.PutString("player_nickname", PlayerPrefs.GetString("playeName"));
+			obj.PutString("language", Application.systemLanguage.ToString());
+			ARWServer.instance.SendExtensionRequest("GetUserData", obj, false);
+		}
 	}
 
 	private void GetUserData(ARWObject obj, object value){
