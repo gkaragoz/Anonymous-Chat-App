@@ -19,46 +19,54 @@ public class ChatPanelManager{
 		get{	return _user;	}
 	}
 
-	private Transform canvas;
-	private Transform talksScreen;
-	private Transform talksParent;
-	private Transform conversationScreen;
+	public Transform talksScreen;
+	public Transform welcomeScreen;
+	public Transform conversationScreen;
+
+	private Transform talksContentParent;
 	private Button newConversationButton;
 	public Transform messagesParent;
 
-	public ChatPanelManager(Player user){
-		this._user = user;
+	public ChatPanelManager(Transform welcomeScreen, Transform talksScreen, Transform conversationScreen){
 		instance = this;
 
-		this.canvas = GameObject.Find("Canvas").transform;
-		
-		this.talksScreen = this.canvas.Find("TalksScreen");
-		this.talksParent = this.talksScreen.Find("TalksListSection").GetChild(0).GetChild(0);
+		this.welcomeScreen = welcomeScreen;
+		this.talksScreen = talksScreen;
+		this.conversationScreen = conversationScreen;
 
-        this.newConversationButton = this.talksScreen.Find("TalksListSection").Find("New Conversation").GetComponent<Button>();
+		this.talksContentParent = this.talksScreen.Find("Scroll View/Viewport/Content");
+
+		this.newConversationButton = this.talksScreen.Find("New Conversation").GetComponent<Button>();
         this.newConversationButton.onClick.AddListener(delegate(){
 			ARWObject obj = new IARWObject();
 			ServerManager.instance.arwServer.SendExtensionRequest("FindConversation",obj, false);
 		});
 
-		this.conversationScreen = this.canvas.Find("ConversationScreen");
-		this.messagesParent = this.conversationScreen.Find("MessagesParent");
+		talksScreen.gameObject.SetActive(false);
+		conversationScreen.gameObject.SetActive(false);
+		welcomeScreen.gameObject.SetActive(false);
+	}
+
+	public void InitPanel(Player user){
+		this._user = user;
 
 		InitializeTalksScreen();
 	}
 	
 	public void InitializeTalksScreen(){
 		if(this.user == null)		return;
-
+		this.welcomeScreen.gameObject.SetActive(false);
+		this.talksScreen.gameObject.SetActive(true);
+		
 		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
 
 		for(int ii = 0; ii < this.user.playerTalks.Length; ii++){
 			Talk currentTalk = this.user.playerTalks[ii];
 			Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
-			newConversation.Find("talk_button").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
-			newConversation.Find("user_name").GetComponent<Text>().text = currentTalk.receiverName;
-			newConversation.SetParent(this.talksParent);
-			newConversation.localPosition = Vector3.zero + new Vector3(532,-175 * ii,0);
+			newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
+			newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = currentTalk.receiverName;
+			newConversation.SetParent(this.talksContentParent);
+			newConversation.localPosition = Vector3.zero + new Vector3(0,-200 * ii,0);
 			newConversation.eulerAngles = Vector3.zero;
 		}
 	}
