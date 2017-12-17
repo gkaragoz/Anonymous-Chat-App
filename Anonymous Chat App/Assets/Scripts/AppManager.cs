@@ -75,17 +75,7 @@ public class AppManager : MonoBehaviour{
             string email = inputEmailOnSignup.text;
         });
 
-        new PlayServicesManager();
-
 		ServerManager.instance.Init();
-
-		PlayServicesManager.instance.SignIn();
-		this.googlePlayAccountId = PlayServicesManager.instance.GetId();
-		if(this.googlePlayAccountId == "-1"){
-			Application.Quit();
-			return;
-		}
-
 		ServerManager.instance.arwServer.SendLoginRequest(AppManager.instance.googlePlayAccountId, null);
 		// TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
 	}
