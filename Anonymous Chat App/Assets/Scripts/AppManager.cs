@@ -31,12 +31,25 @@ public class AppManager : MonoBehaviour{
 
 	private Button loginButton;
     private Button signupButton;
+    private InputField inputPasswordOnSignup;
+    private InputField inputEmailOnSignup;
+    private InputField inputEmailOnLogin;
+    private InputField inputPasswordOnLogin;
+    private InputField inputNickname;
 
 	private void Start(){
 		instance = this;
 		GameObject canvas = GameObject.Find("Canvas");
 
-		new ChatPanelManager(canvas.transform.Find("Screen View/WelcomeScreen"),
+        this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
+        this.signupButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnSignup").GetComponent<Button>();
+        this.inputPasswordOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputPassword").GetComponent<InputField>();
+        this.inputEmailOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputEmail").GetComponent<InputField>();
+        this.inputEmailOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputEmail").GetComponent<InputField>();
+        this.inputPasswordOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputPassword").GetComponent<InputField>();
+        this.inputNickname = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputNickname").GetComponent<InputField>();
+
+        new ChatPanelManager(canvas.transform.Find("Screen View/WelcomeScreen"),
             canvas.transform.Find("Screen View/RegisterScreen"),
 			canvas.transform.Find("Screen View/TalksScreen"), 
 			canvas.transform.Find("Screen View/ConversationScreen"));
