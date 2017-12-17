@@ -4,14 +4,15 @@ using UnityEngine;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 
-public class PlayServicesManager : MonoBehaviour {
-
-	void Start () {
-        SignIn();
-	}
+public class PlayServicesManager {
 	
-	public void SignIn()
-    {
+    public static PlayServicesManager instance;
+
+    public PlayServicesManager(){
+        instance = this;
+    }
+
+	public void SignIn(){
         // authenticate user:
         Social.localUser.Authenticate((bool success) => {
             // handle success or failure
@@ -19,8 +20,7 @@ public class PlayServicesManager : MonoBehaviour {
         });
     }
 
-    public string GetId()
-    {
+    public string GetId(){
         if (Social.localUser.authenticated)
             return Social.localUser.id;
         else
