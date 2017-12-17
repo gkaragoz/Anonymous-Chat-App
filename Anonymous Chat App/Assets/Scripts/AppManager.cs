@@ -44,7 +44,7 @@ public class AppManager : MonoBehaviour{
 
         this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
         this.signupButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnSignup").GetComponent<Button>();
-        this.registerButton = canvas.transform.Find("Screen View/RegisterScreen/PanlRegister/PanelLayer/btnStart").GetComponent<Button>();
+        this.registerButton = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/btnStart").GetComponent<Button>();
         this.inputPasswordOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputPassword").GetComponent<InputField>();
         this.inputEmailOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputEmail").GetComponent<InputField>();
         this.inputEmailOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputEmail").GetComponent<InputField>();
@@ -81,6 +81,9 @@ public class AppManager : MonoBehaviour{
             obj.PutString("player_password", password);
             obj.PutString("language", language);
             obj.PutString("player_nickname", nickname);
+
+            PlayerPrefs.SetString("player_id", email);
+            PlayerPrefs.SetString("player_pass", password);
 
             ARWServer.instance.SendExtensionRequest("Register", obj, false);            
         });
