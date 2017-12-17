@@ -54,18 +54,26 @@ public class AppManager : MonoBehaviour{
 			canvas.transform.Find("Screen View/TalksScreen"), 
 			canvas.transform.Find("Screen View/ConversationScreen"));
 
-		this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
 		this.loginButton.onClick.AddListener(delegate(){
 			if(!ServerManager.instance.canLogin)		return;
-			string nickname = GameObject.Find("Canvas/Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputNickname").GetComponent<InputField>().text;
+
+            string email = inputEmailOnLogin.text;
+            string password = inputPasswordOnLogin.text;
 
 			Debug.Log(AppManager.instance.googlePlayAccountId);
 			ARWObject obj = new IARWObject();
 			obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
-			obj.PutString("player_nickname", nickname);
+			obj.PutString("player_nickname", password);
 			obj.PutString("language", Application.systemLanguage.ToString());
 			ARWServer.instance.SendExtensionRequest("GetUserData", obj, false);
 		});
+
+        this.signupButton.onClick.AddListener(delegate ()
+        {
+            string nickname = inputNickname.text;
+            string password = inputPasswordOnSignup.text;
+            string email = inputEmailOnSignup.text;
+        });
 
         new PlayServicesManager();
 

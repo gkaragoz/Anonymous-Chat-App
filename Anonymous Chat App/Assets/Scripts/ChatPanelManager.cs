@@ -44,10 +44,10 @@ public class ChatPanelManager{
 			ServerManager.instance.arwServer.SendExtensionRequest("FindConversation",obj, false);
 		});
 
-		talksScreen.gameObject.SetActive(false);
-		conversationScreen.gameObject.SetActive(false);
-		welcomeScreen.gameObject.SetActive(false);
-        registerScreen.gameObject.SetActive(false);
+		//talksScreen.gameObject.SetActive(false);
+		//conversationScreen.gameObject.SetActive(false);
+		//welcomeScreen.gameObject.SetActive(false);
+        //registerScreen.gameObject.SetActive(false);
 	}
 
 	public void InitPanel(Player user){
