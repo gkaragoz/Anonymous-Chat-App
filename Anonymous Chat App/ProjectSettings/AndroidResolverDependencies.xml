@@ -5,6 +5,7 @@
     <package>com.google.android.gms:play-services-nearby:10+</package>
     <package>com.google.games:gpgs-plugin-support:0+</package>
   </packages>
+<<<<<<< HEAD
   <files>
     <file>Assets/Plugins/Android/gpgs-plugin-support-0.9.42</file>
     <file>Assets/Plugins/Android/play-services-auth-10.2.6.aar</file>
@@ -23,4 +24,7 @@
     <file>Assets/Plugins/Android/support-media-compat-25.2.0.aar</file>
     <file>Assets/Plugins/Android/support-v4-25.2.0.aar</file>
   </files>
+=======
+  <files />
+>>>>>>> 14bf2e74a092b7cf38a3f652b37a1110349bad0b
 </dependencies>

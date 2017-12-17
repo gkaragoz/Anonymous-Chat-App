@@ -4,15 +4,41 @@ labels:
 - gvh
 - gvh_targets-editor
 - gvh_version-1.2.59.0
+<<<<<<< HEAD
+timeCreated: 1513468189
+licenseType: Pro
+PluginImporter:
+  externalObjects: {}
+=======
 timeCreated: 1513461356
 licenseType: Pro
 PluginImporter:
+>>>>>>> fc12796a18796461b7254b9db73d005f6ac50657
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
   isPreloaded: 0
   isOverridable: 0
   platformData:
+<<<<<<< HEAD
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+=======
     data:
       first:
         Any: 
@@ -33,6 +59,7 @@ PluginImporter:
         enabled: 0
         settings:
           CPU: AnyCPU
+>>>>>>> fc12796a18796461b7254b9db73d005f6ac50657
   userData: 
   assetBundleName: 
   assetBundleVariant: 

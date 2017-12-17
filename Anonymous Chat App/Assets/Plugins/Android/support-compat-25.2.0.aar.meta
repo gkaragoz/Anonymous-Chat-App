@@ -1,16 +1,25 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 4f28c1e465519f8489bde8585782514e
 labels:
 - gpsr
 timeCreated: 1513522337
 licenseType: Pro
 PluginImporter:
+=======
+guid: c015024bd0ecd504fabaf82f9dbe4cac
+timeCreated: 1513511153
+licenseType: Pro
+PluginImporter:
+  externalObjects: {}
+>>>>>>> 14bf2e74a092b7cf38a3f652b37a1110349bad0b
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
   isPreloaded: 0
   isOverridable: 0
   platformData:
+<<<<<<< HEAD
     data:
       first:
         Android: Android
@@ -30,6 +39,24 @@ PluginImporter:
         enabled: 0
         settings:
           DefaultValueInitialized: true
+=======
+  - first:
+      Android: Android
+    second:
+      enabled: 1
+      settings: {}
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+>>>>>>> 14bf2e74a092b7cf38a3f652b37a1110349bad0b
   userData: 
   assetBundleName: 
   assetBundleVariant: 

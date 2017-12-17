@@ -17,6 +17,12 @@ public class ServerManager : MonoBehaviour{
 
 	public ARWServer arwServer;
 
+	private string GETUSERDATA = "GetUserData";
+	private string SENDMESSAGE = "SendMessage";
+	private string FINDCONVERSATION = "FindConversation";
+	private string FINDEDCONVERSATION = "FindedConversation";
+	private string CANNOTFINDACTIVEUSER = "CannotFindActiveUser";
+
 	private void Awake(){
 		arwServer = new ARWServer();
 		arwServer.Init();
@@ -25,7 +31,10 @@ public class ServerManager : MonoBehaviour{
 
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION, OnConnectionSuccess);
 		arwServer.AddEventHandlers(ARWEvents.LOGIN, OnLoginSuccess);
-		arwServer.AddExtensionRequest("GetUserData", GetUserData);
+
+		arwServer.AddExtensionRequest(GETUSERDATA, GetUserData);
+		arwServer.AddExtensionRequest(FINDEDCONVERSATION, FindedConversationHandler);
+		arwServer.AddExtensionRequest(CANNOTFINDACTIVEUSER, CannotFindActiveUser);
 
 		instance = this;
 		arwServer.Connect(cfg);
@@ -39,7 +48,7 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
 
-		arwServer.SendLoginRequest("0", null);
+		arwServer.SendLoginRequest("123123123", null);
 	}
 
 	private void OnLoginSuccess(ARWObject obj, object value){
@@ -60,5 +69,19 @@ public class ServerManager : MonoBehaviour{
 		}else{
 			Debug.Log("GetUserData Error : " + obj.GetString("error"));
 		}
+	}
+
+	private void FindedConversationHandler(ARWObject obj, object value){
+		string newTalkData = obj.GetString("talk_data");
+
+		JSONObject talkJson = new JSONObject(newTalkData);
+		Talk newTalk = new Talk(talkJson);
+		ChatPanelManager.instance.user.AddTalk(newTalk);
+
+		Debug.Log(newTalk.talkId + " : " + newTalk.receiverName + " : " + newTalk.talkMessages.Length);
+	}
+
+	private void CannotFindActiveUser(ARWObject obj, object value){
+
 	}
 }

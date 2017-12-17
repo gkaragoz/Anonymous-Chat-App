@@ -46,4 +46,8 @@ public class Player{
 			this._playerTalks.Add(newTalk);
 		}
 	}
+
+	public void AddTalk(Talk talk){
+		this._playerTalks.Add(talk);
+	}
 }
