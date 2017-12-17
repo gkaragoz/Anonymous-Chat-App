@@ -17,6 +17,12 @@ public class ServerManager : MonoBehaviour{
 
 	public ARWServer arwServer;
 
+	private string GETUSERDATA = "GetUserData";
+	private string SENDMESSAGE = "SendMessage";
+	private string FINDCONVERSATION = "FindConversation";
+	private string FINDEDCONVERSATION = "FindedConversation";
+	private string CANNOTFINDACTIVEUSER = "CannotFindActiveUser";
+
 	private void Awake(){
 		arwServer = new ARWServer();
 		arwServer.Init();
@@ -25,7 +31,7 @@ public class ServerManager : MonoBehaviour{
 
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION, OnConnectionSuccess);
 		arwServer.AddEventHandlers(ARWEvents.LOGIN, OnLoginSuccess);
-		arwServer.AddExtensionRequest("GetUserData", GetUserData);
+		arwServer.AddExtensionRequest(GETUSERDATA, GetUserData);
 
 		instance = this;
 		arwServer.Connect(cfg);
@@ -39,7 +45,7 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
 
-		arwServer.SendLoginRequest("0", null);
+		arwServer.SendLoginRequest("123123123", null);
 	}
 
 	private void OnLoginSuccess(ARWObject obj, object value){
