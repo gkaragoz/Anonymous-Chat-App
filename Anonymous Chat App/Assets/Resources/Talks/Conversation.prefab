@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224018249672754962}
   - component: {fileID: 114010553738451916}
   m_Layer: 5
-  m_Name: pnlPersonCard
+  m_Name: Conversation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
