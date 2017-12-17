@@ -9,6 +9,7 @@ public class AppManager : MonoBehaviour{
 
 	public static AppManager instance;
 
+	public string googlePlayAccountId;
 	public Transform poolSystemParent;
 	
 	public Talk currentTalk;
@@ -22,9 +23,20 @@ public class AppManager : MonoBehaviour{
 		CONVERSATION
 	}
 
-	private void Awake(){
+	private void Start(){
 		instance = this;
 
+		new PlayServicesManager();
+
+		PlayServicesManager.instance.SignIn();
+
+		this.googlePlayAccountId = PlayServicesManager.instance.GetId();
+		if(this.googlePlayAccountId == "-1"){
+			Application.Quit();
+			return;
+		}
+
+		ServerManager.instance.Init();
 		// TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
 	}
 
