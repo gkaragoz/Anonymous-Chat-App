@@ -24,6 +24,10 @@ public class ServerManager : MonoBehaviour{
 	private string CANNOTFINDACTIVEUSER = "CannotFindActiveUser";
 
 	private void Awake(){
+		instance = this;
+	}
+
+	public void Init(){
 		arwServer = new ARWServer();
 		arwServer.Init();
 
@@ -36,19 +40,20 @@ public class ServerManager : MonoBehaviour{
 		arwServer.AddExtensionRequest(FINDEDCONVERSATION, FindedConversationHandler);
 		arwServer.AddExtensionRequest(CANNOTFINDACTIVEUSER, CannotFindActiveUser);
 
-		instance = this;
 		arwServer.Connect(cfg);
 	}
 
 	private void Update(){
-		arwServer.ProcessEvents();
+		if(this.arwServer != null){
+			arwServer.ProcessEvents();
+		}
 	}
 
 	private void OnConnectionSuccess(ARWObject obj, object value){
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
 
-		arwServer.SendLoginRequest("52555525", null);
+		arwServer.SendLoginRequest(AppManager.instance.googlePlayAccountId, null);
 	}
 
 	private void OnLoginSuccess(ARWObject obj, object value){
@@ -56,8 +61,8 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Sending GetUserData Request");
 
 		obj = new IARWObject();
-		obj.PutString("player_id", "52555525");
-		obj.PutString("player_nickname", "qwqweee");
+		obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
+		obj.PutString("player_nickname", "powerLED");
 		obj.PutString("language", Application.systemLanguage.ToString());
 
 		arwServer.SendExtensionRequest("GetUserData", obj, false);
