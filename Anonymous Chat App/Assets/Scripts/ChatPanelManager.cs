@@ -19,6 +19,7 @@ public class ChatPanelManager{
 		get{	return _user;	}
 	}
 
+    public Transform registerScreen;
 	public Transform talksScreen;
 	public Transform welcomeScreen;
 	public Transform conversationScreen;
@@ -27,10 +28,11 @@ public class ChatPanelManager{
 	private Button newConversationButton;
 	public Transform messagesParent;
 
-	public ChatPanelManager(Transform welcomeScreen, Transform talksScreen, Transform conversationScreen){
+	public ChatPanelManager(Transform welcomeScreen, Transform registerScreen, Transform talksScreen, Transform conversationScreen){
 		instance = this;
 
 		this.welcomeScreen = welcomeScreen;
+        this.registerScreen = registerScreen;
 		this.talksScreen = talksScreen;
 		this.conversationScreen = conversationScreen;
 
@@ -45,6 +47,7 @@ public class ChatPanelManager{
 		talksScreen.gameObject.SetActive(false);
 		conversationScreen.gameObject.SetActive(false);
 		welcomeScreen.gameObject.SetActive(false);
+        registerScreen.gameObject.SetActive(false);
 	}
 
 	public void InitPanel(Player user){

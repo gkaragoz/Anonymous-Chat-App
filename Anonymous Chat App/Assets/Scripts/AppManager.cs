@@ -30,12 +30,14 @@ public class AppManager : MonoBehaviour{
 	}
 
 	private Button loginButton;
+    private Button signupButton;
 
 	private void Start(){
 		instance = this;
 		GameObject canvas = GameObject.Find("Canvas");
 
 		new ChatPanelManager(canvas.transform.Find("Screen View/WelcomeScreen"),
+            canvas.transform.Find("Screen View/RegisterScreen"),
 			canvas.transform.Find("Screen View/TalksScreen"), 
 			canvas.transform.Find("Screen View/ConversationScreen"));
 
@@ -51,8 +53,8 @@ public class AppManager : MonoBehaviour{
 			obj.PutString("language", Application.systemLanguage.ToString());
 			ARWServer.instance.SendExtensionRequest("GetUserData", obj, false);
 		});
-		
-		new PlayServicesManager();
+
+        new PlayServicesManager();
 
 		ServerManager.instance.Init();
 
