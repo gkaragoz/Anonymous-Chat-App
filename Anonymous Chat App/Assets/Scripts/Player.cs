@@ -39,6 +39,9 @@ public class Player{
 		this._language = playerData.GetString("language");
 		// this._createdDate = System.DateTime.Parse(playerData.GetString("created_date"));
 
+        if(playerData.GetField("player_talks") == null)
+            return;
+
 		for(int ii = 0; ii < playerData.GetField("player_talks").list.Count; ii++){
 			JSONObject currentTalkData = playerData.GetField("player_talks").list[ii];
 			Talk newTalk = new Talk(currentTalkData);

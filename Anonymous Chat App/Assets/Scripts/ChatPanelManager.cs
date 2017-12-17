@@ -35,8 +35,8 @@ public class ChatPanelManager{
 		this.talksScreen = this.canvas.Find("TalksScreen");
 		this.talksParent = this.talksScreen.Find("TalksListSection").GetChild(0).GetChild(0);
 
-		this.newConversationButton = this.talksScreen.Find("TalksListSection").Find("New Conversation").GetComponent<Button>();
-		this.newConversationButton.onClick.AddListener(delegate(){
+        this.newConversationButton = this.talksScreen.Find("TalksListSection").Find("New Conversation").GetComponent<Button>();
+        this.newConversationButton.onClick.AddListener(delegate(){
 			ARWObject obj = new IARWObject();
 			ServerManager.instance.arwServer.SendExtensionRequest("FindConversation",obj, false);
 		});

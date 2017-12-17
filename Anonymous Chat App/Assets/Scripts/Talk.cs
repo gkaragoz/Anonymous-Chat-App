@@ -39,7 +39,7 @@ public class Talk{
 		this._talkMessages = new List<Message>();
 
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
-		this._recieverPlayerId = int.Parse(talkData.GetString("reciver_id"));
+		this._recieverPlayerId = int.Parse(talkData.GetString("receiver_id"));
 		this._senderPlayerId = int.Parse(talkData.GetString("sender_id"));
 		this._receiverName = talkData.GetString("receiver_name");
 		

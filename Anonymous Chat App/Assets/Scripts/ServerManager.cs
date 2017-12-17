@@ -27,7 +27,7 @@ public class ServerManager : MonoBehaviour{
 		arwServer = new ARWServer();
 		arwServer.Init();
 
-		ConfigData cfg = new ConfigData(8081, 9933, "localhost");
+		ConfigData cfg = new ConfigData(8081, 9933, "192.168.1.105");
 
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION, OnConnectionSuccess);
 		arwServer.AddEventHandlers(ARWEvents.LOGIN, OnLoginSuccess);
@@ -48,7 +48,7 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
 
-		arwServer.SendLoginRequest("123123123", null);
+		arwServer.SendLoginRequest("52555525", null);
 	}
 
 	private void OnLoginSuccess(ARWObject obj, object value){
@@ -56,8 +56,8 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Sending GetUserData Request");
 
 		obj = new IARWObject();
-		obj.PutString("player_id", "123123123");
-		obj.PutString("player_nickname", "powerLED");
+		obj.PutString("player_id", "52555525");
+		obj.PutString("player_nickname", "qwqweee");
 		obj.PutString("language", Application.systemLanguage.ToString());
 
 		arwServer.SendExtensionRequest("GetUserData", obj, false);
@@ -84,4 +84,9 @@ public class ServerManager : MonoBehaviour{
 	private void CannotFindActiveUser(ARWObject obj, object value){
 
 	}
+
+    private void OnApplicationQuit()
+    {
+        arwServer.Disconnection();
+    }
 }
