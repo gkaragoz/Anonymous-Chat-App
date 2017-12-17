@@ -7,8 +7,8 @@ public class Talk{
 
 #region Private_Variables
 	private int _talkId;
-	private int _recieverPlayerId;
-	private int _senderPlayerId;
+	private string _recieverPlayerId;
+	private string _senderPlayerId;
 	private string _receiverName;
 	private List<Message> _talkMessages;
 #endregion
@@ -18,11 +18,11 @@ public class Talk{
 		get{	return _talkId;				}
 	}
 
-	public int recieverPlayerId{
+	public string recieverPlayerId{
 		get{	return _recieverPlayerId;		}
 	}
 
-	public int senderPlayerId{
+	public string senderPlayerId{
 		get{	return _senderPlayerId;		}
 	}
 
@@ -39,8 +39,8 @@ public class Talk{
 		this._talkMessages = new List<Message>();
 
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
-		this._recieverPlayerId = int.Parse(talkData.GetString("receiver_id"));
-		this._senderPlayerId = int.Parse(talkData.GetString("sender_id"));
+		this._recieverPlayerId = talkData.GetString("receiver_id");
+		this._senderPlayerId = talkData.GetString("sender_id");
 		this._receiverName = talkData.GetString("receiver_name");
 		
 		for(int ii = 0; ii< talkData.GetField("talk_messages").list.Count; ii++){
