@@ -6,5 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Main.unity
     guid: 32f11c6d6996b0f45804b265762160ae
+=======
+    path: Assets/Scenes/GooglePlay_Login.unity
+    guid: eec1bb816b23e614ba2762b73a897740
+>>>>>>> fc12796a18796461b7254b9db73d005f6ac50657

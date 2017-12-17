@@ -6,18 +6,22 @@ PlayerSettings:
   serializedVersion: 13
   productGUID: a52b44161b66d634a8ab5e593180cb55
   AndroidProfiler: 0
+<<<<<<< HEAD
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
+=======
+  defaultScreenOrientation: 1
+>>>>>>> fc12796a18796461b7254b9db73d005f6ac50657
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: gkaragoz
   productName: Anonymous Chat App
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -145,10 +149,15 @@ PlayerSettings:
   m_ColorGamuts: 00000000
   targetPixelDensity: 0
   resolutionScalingMode: 0
+<<<<<<< HEAD
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Deneme.AnonymousChatApp
+=======
+  applicationIdentifier:
+    Android: com.gkaragoz.anonymouschatapp
+>>>>>>> fc12796a18796461b7254b9db73d005f6ac50657
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
