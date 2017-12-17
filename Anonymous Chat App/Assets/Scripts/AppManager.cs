@@ -62,10 +62,12 @@ public class AppManager : MonoBehaviour{
             string email = inputEmailOnLogin.text;
             string password = inputPasswordOnLogin.text;
 
-			Debug.Log(AppManager.instance.googlePlayAccountId);
 			ARWObject obj = new IARWObject();
 			obj.PutString("player_id", email);
 			obj.PutString("player_password", password);
+
+			PlayerPrefs.SetString("player_id", email);
+            PlayerPrefs.SetString("player_pass", password);
 			ARWServer.instance.SendExtensionRequest("Login", obj, false);
 		});
 
@@ -95,10 +97,9 @@ public class AppManager : MonoBehaviour{
 
 	public void InitPlayer(string playerData){
 		JSONObject playerJson = new JSONObject(playerData);
-		Debug.Log(playerData);
+		
 		Player me = new Player(playerJson);
 		Debug.Log(me.playerName + " : " + me.playerId + " : " + me.playerTalks.Length);
-		PlayerPrefs.SetString("playerName", me.playerName);
 
 		// new MessagesPoolSystem(poolSystemParent);
 		ChatPanelManager.instance.InitPanel(me);
