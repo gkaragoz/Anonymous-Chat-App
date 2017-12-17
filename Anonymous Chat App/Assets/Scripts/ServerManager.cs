@@ -56,13 +56,18 @@ public class ServerManager : MonoBehaviour{
 	}
 
 	private void OnLoginSuccess(ARWObject arwObj, object value){
-		Debug.Log("Login Success");
-		Debug.Log("Sending Google Play ID");
+		Debug.Log("Server Login Success");
 		this.canLogin = true;
 
-		arwObj = new IARWObject();
-		arwObj.PutString("player_id", AppManager.instance.googlePlayAccountId);
-		arwServer.SendExtensionRequest("IsUserExist", arwObj, false);
+		string email = PlayerPrefs.GetString("player_id");
+		string pass = PlayerPrefs.GetString("player_pass");
+
+		AppManager.instance.inputEmailOnLogin.text = email;
+		AppManager.instance.inputPasswordOnLogin.text = pass;
+		// ARWObject obj = new IARWObject();
+		// obj.PutString("player_id", email);
+		// obj.PutString("player_password", pass);
+		// arwServer.SendExtensionRequest("Login", obj, false);
 	}
 
 	private void GetUserData(ARWObject obj, object value){

@@ -31,11 +31,12 @@ public class AppManager : MonoBehaviour{
 
 	private Button loginButton;
     private Button signupButton;
-    private InputField inputPasswordOnSignup;
-    private InputField inputEmailOnSignup;
-    private InputField inputEmailOnLogin;
-    private InputField inputPasswordOnLogin;
-    private InputField inputNickname;
+    private Button registerButton;
+    public InputField inputPasswordOnSignup;
+    public InputField inputEmailOnSignup;
+    public InputField inputEmailOnLogin;
+    public InputField inputPasswordOnLogin;
+    public InputField inputNickname;
 
 	private void Start(){
 		instance = this;
@@ -43,6 +44,7 @@ public class AppManager : MonoBehaviour{
 
         this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
         this.signupButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnSignup").GetComponent<Button>();
+        this.registerButton = canvas.transform.Find("Screen View/RegisterScreen/PanlRegister/PanelLayer/btnStart").GetComponent<Button>();
         this.inputPasswordOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputPassword").GetComponent<InputField>();
         this.inputEmailOnSignup = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputEmail").GetComponent<InputField>();
         this.inputEmailOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputEmail").GetComponent<InputField>();
@@ -62,21 +64,29 @@ public class AppManager : MonoBehaviour{
 
 			Debug.Log(AppManager.instance.googlePlayAccountId);
 			ARWObject obj = new IARWObject();
-			obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
-			obj.PutString("player_nickname", password);
-			obj.PutString("language", Application.systemLanguage.ToString());
-			ARWServer.instance.SendExtensionRequest("GetUserData", obj, false);
+			obj.PutString("player_id", email);
+			obj.PutString("player_password", password);
+			ARWServer.instance.SendExtensionRequest("Login", obj, false);
 		});
 
-        this.signupButton.onClick.AddListener(delegate ()
+        this.registerButton.onClick.AddListener(delegate ()
         {
             string nickname = inputNickname.text;
             string password = inputPasswordOnSignup.text;
             string email = inputEmailOnSignup.text;
+            string language = Application.systemLanguage.ToString();
+
+            ARWObject obj = new IARWObject();
+            obj.PutString("player_id", email);
+            obj.PutString("player_password", password);
+            obj.PutString("language", language);
+            obj.PutString("player_nickname", nickname);
+
+            ARWServer.instance.SendExtensionRequest("Register", obj, false);            
         });
 
 		ServerManager.instance.Init();
-		ServerManager.instance.arwServer.SendLoginRequest(AppManager.instance.googlePlayAccountId, null);
+		ServerManager.instance.arwServer.SendLoginRequest("GUEST", null);
 		// TextAsset playerData = Resources.Load<TextAsset>("ExamplePlayer");
 	}
 
