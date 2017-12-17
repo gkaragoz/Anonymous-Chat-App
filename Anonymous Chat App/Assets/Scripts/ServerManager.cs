@@ -40,7 +40,7 @@ public class ServerManager : MonoBehaviour{
 		arwServer.AddExtensionRequest(GETUSERDATA, GetUserData);
 		arwServer.AddExtensionRequest(FINDEDCONVERSATION, FindedConversationHandler);
 		arwServer.AddExtensionRequest(CANNOTFINDACTIVEUSER, CannotFindActiveUser);
-
+		arwServer.AddExtensionRequest("Register", RegisterHandler);
 		arwServer.Connect(cfg);
 	}
 
@@ -57,17 +57,12 @@ public class ServerManager : MonoBehaviour{
 
 	private void OnLoginSuccess(ARWObject arwObj, object value){
 		Debug.Log("Login Success");
+		Debug.Log("Sending Google Play ID");
 		this.canLogin = true;
 
-		if(PlayerPrefs.GetString("playerName") == ""){
-			ChatPanelManager.instance.welcomeScreen.gameObject.SetActive(true);
-		}else{
-			ARWObject obj = new IARWObject();
-			obj.PutString("player_id", AppManager.instance.googlePlayAccountId);
-			obj.PutString("player_nickname", PlayerPrefs.GetString("playeName"));
-			obj.PutString("language", Application.systemLanguage.ToString());
-			ARWServer.instance.SendExtensionRequest("GetUserData", obj, false);
-		}
+		arwObj = new IARWObject();
+		arwObj.PutString("player_id", AppManager.instance.googlePlayAccountId);
+		arwServer.SendExtensionRequest("IsUserExist", arwObj, false);
 	}
 
 	private void GetUserData(ARWObject obj, object value){
@@ -78,12 +73,20 @@ public class ServerManager : MonoBehaviour{
 		}
 	}
 
+	private void RegisterHandler(ARWObject obj, object value){
+		ChatPanelManager.instance.welcomeScreen.gameObject.SetActive(true);
+	}
+
 	private void FindedConversationHandler(ARWObject obj, object value){
 		string newTalkData = obj.GetString("talk_data");
 
 		JSONObject talkJson = new JSONObject(newTalkData);
 		Talk newTalk = new Talk(talkJson);
+
+		if(newTalk.receiverName == "")		return;
+
 		ChatPanelManager.instance.user.AddTalk(newTalk);
+		ChatPanelManager.instance.InitializeTalksScreen();
 
 		Debug.Log(newTalk.talkId + " : " + newTalk.receiverName + " : " + newTalk.talkMessages.Length);
 	}

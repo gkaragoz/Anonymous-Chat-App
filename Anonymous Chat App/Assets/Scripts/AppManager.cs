@@ -33,8 +33,6 @@ public class AppManager : MonoBehaviour{
 
 	private void Start(){
 		instance = this;
-		// PlayerPrefs.SetString("playerName", "");
-		// return;
 		GameObject canvas = GameObject.Find("Canvas");
 
 		new ChatPanelManager(canvas.transform.Find("Screen View/WelcomeScreen"),
@@ -57,18 +55,6 @@ public class AppManager : MonoBehaviour{
 		new PlayServicesManager();
 
 		ServerManager.instance.Init();
-
-		if(PlayerPrefs.GetString("playerName") == ""){
-			Debug.Log("++++++");
-			PlayServicesManager.instance.SignIn();
-			this.googlePlayAccountId = PlayServicesManager.instance.GetId();
-			if(this.googlePlayAccountId == "-1"){
-				Application.Quit();
-				return;
-			}
-			ServerManager.instance.arwServer.SendLoginRequest(AppManager.instance.googlePlayAccountId, null);
-			return;
-		}
 
 		PlayServicesManager.instance.SignIn();
 		this.googlePlayAccountId = PlayServicesManager.instance.GetId();

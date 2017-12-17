@@ -48,6 +48,8 @@ public class ChatPanelManager{
 	}
 
 	public void InitPanel(Player user){
+		this.welcomeScreen.gameObject.SetActive(false);
+		this.talksScreen.gameObject.SetActive(true);
 		this._user = user;
 
 		InitializeTalksScreen();
@@ -57,7 +59,7 @@ public class ChatPanelManager{
 		if(this.user == null)		return;
 		this.welcomeScreen.gameObject.SetActive(false);
 		this.talksScreen.gameObject.SetActive(true);
-		
+
 		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
 
 		for(int ii = 0; ii < this.user.playerTalks.Length; ii++){
@@ -66,7 +68,9 @@ public class ChatPanelManager{
 			newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
 			newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = currentTalk.receiverName;
 			newConversation.SetParent(this.talksContentParent);
-			newConversation.localPosition = Vector3.zero + new Vector3(0,-200 * ii,0);
+			newConversation.localPosition = Vector3.zero;
+			newConversation.localPosition += new Vector3(640, -150,0);
+			newConversation.localScale = Vector3.one;
 			newConversation.eulerAngles = Vector3.zero;
 		}
 	}
