@@ -6,6 +6,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+using ARW;
+using ARW.Com;
+using ARW.Requests;
+
 public class ChatPanelManager{
 
 	public static ChatPanelManager instance;
@@ -30,6 +34,12 @@ public class ChatPanelManager{
 		
 		this.talksScreen = this.canvas.Find("TalksScreen");
 		this.talksParent = this.talksScreen.Find("TalksListSection").GetChild(0).GetChild(0);
+
+		this.newConversationButton = this.talksScreen.Find("TalksListSection").Find("New Conversation").GetComponent<Button>();
+		this.newConversationButton.onClick.AddListener(delegate(){
+			ARWObject obj = new IARWObject();
+			ServerManager.instance.arwServer.SendExtensionRequest("FindConversation",obj, false);
+		});
 
 		this.conversationScreen = this.canvas.Find("ConversationScreen");
 		this.messagesParent = this.conversationScreen.Find("MessagesParent");
