@@ -57,7 +57,7 @@ public class ChatPanelManager{
 		InitializeTalksScreen();
 	}
 	
-	public void InitializeTalksScreen(){
+	public void InitializeTalksScreen(int xOffset = 0){
 		if(this.user == null)		return;
 		this.welcomeScreen.gameObject.SetActive(false);
 		this.talksScreen.gameObject.SetActive(true);
@@ -70,11 +70,26 @@ public class ChatPanelManager{
 			newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
 			newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = currentTalk.receiverName;
 			newConversation.SetParent(this.talksContentParent);
-			newConversation.localPosition = Vector3.zero + new Vector3(0, -200 * ii, 0);
-			newConversation.localPosition += new Vector3(640, -150,0);
+			newConversation.localPosition = Vector3.zero + new Vector3(0,-200 * ii, 0);
+
+			newConversation.localPosition += new Vector3(xOffset, -150,0);
+
 			newConversation.localScale = Vector3.one;
 			newConversation.eulerAngles = Vector3.zero;
 		}
+	}
+
+	public void InitNewTalk(Talk newTalk){
+		Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
+		newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(newTalk.EnterTalk);
+		newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = newTalk.receiverName;
+		newConversation.SetParent(this.talksContentParent);
+		newConversation.localPosition = Vector3.zero + new Vector3(0,-200 * (user.playerTalks.Length-1), 0);
+
+		newConversation.localPosition += new Vector3(640, -150,0);
+
+		newConversation.localScale = Vector3.one;
+		newConversation.eulerAngles = Vector3.zero;
 	}
 
 	public void OpenConversation(Talk conversation){
