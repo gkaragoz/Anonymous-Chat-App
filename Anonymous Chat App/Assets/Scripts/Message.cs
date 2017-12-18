@@ -10,7 +10,7 @@ public class Message{
 #region Private_Variables
 	private int _messageId;
 	private string _body;
-	private System.DateTime _sendDate;
+	private string _sendDate;
 	private string _senderPlayerId;
 	private int _talkId;
 #endregion
@@ -24,7 +24,7 @@ public class Message{
 		get{	return _body;		}
 	}
 
-	public System.DateTime sendDate{
+	public string sendDate{
 		get{	return _sendDate;	}
 	}
 
@@ -47,12 +47,12 @@ public class Message{
 	public Message(JSONObject messageData){
 		this._messageId = int.Parse(messageData.GetString("message_id"));
 		this._body = messageData.GetString("body");
-		this._sendDate = System.DateTime.Parse(messageData.GetString("send_date"));
+		this._sendDate = messageData.GetString("send_date");
 		this._senderPlayerId = messageData.GetString("sender_id");
 		this._talkId = int.Parse(messageData.GetString("talk_id"));
 	}
 
-	public float InitMessage(int index, float tempDelta){
+	public float InitMessage(int index, float tempDelta, int offset = 0){
 		
 		string prefabPath = this.isMe == true ? "pnlSenderMessage" : "pnlReceiverMessage";
 		Transform messageObj = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/" + prefabPath), Vector3.zero, Quaternion.identity);
@@ -68,7 +68,7 @@ public class Message{
 		messageObj.localEulerAngles = Vector2.zero;
 		messageObj.localScale = Vector3.one;
 
-		messageObj.localPosition = new Vector3(-600, -tempDelta -90 - 160 * index, 0);
+		messageObj.localPosition = new Vector3(-600 + offset, -tempDelta -90 - 160 * index, 0);
 		return delta;
 	}
 }
