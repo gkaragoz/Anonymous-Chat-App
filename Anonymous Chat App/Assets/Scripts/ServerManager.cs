@@ -53,6 +53,7 @@ public class ServerManager : MonoBehaviour{
 	private void OnConnectionSuccess(ARWObject obj, object value){
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
+		AppManager.instance.screenView.Transition(0);
 	}
 
 	private void OnLoginSuccess(ARWObject arwObj, object value){
@@ -72,6 +73,7 @@ public class ServerManager : MonoBehaviour{
 
 	private void GetUserData(ARWObject obj, object value){
 		if(obj.GetString("error") == ""){
+			// AppManager.instance.screenView.Transition(2);
 			AppManager.instance.InitPlayer(obj.GetString("player_data"));
 		}else{
 			Debug.Log("GetUserData Error : " + obj.GetString("error"));
@@ -91,7 +93,7 @@ public class ServerManager : MonoBehaviour{
 		if(newTalk.receiverName == "")		return;
 
 		ChatPanelManager.instance.user.AddTalk(newTalk);
-		ChatPanelManager.instance.InitializeTalksScreen();
+		ChatPanelManager.instance.InitNewTalk(newTalk);
 
 		Debug.Log(newTalk.talkId + " : " + newTalk.receiverName + " : " + newTalk.talkMessages.Length);
 	}
