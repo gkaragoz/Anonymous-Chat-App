@@ -26,6 +26,9 @@ public class ChatPanelManager{
 
 	private Transform talksContentParent;
 	private Button newConversationButton;
+
+	public InputField sendMessageInputField;
+	public Button sendMessageButton;
 	public Transform messagesParent;
 
 	public ChatPanelManager(Transform welcomeScreen, Transform registerScreen, Transform talksScreen, Transform conversationScreen){
@@ -37,6 +40,9 @@ public class ChatPanelManager{
 		this.conversationScreen = conversationScreen;
 
 		this.talksContentParent = this.talksScreen.Find("Scroll View/Viewport/Content");
+
+		this.sendMessageButton = this.conversationScreen.Find("pnlSendMessage/PanelLayer/btnSendMessage").GetComponent<Button>();
+		this.sendMessageInputField = this.conversationScreen.Find("pnlSendMessage/PanelLayer/inputMessage").GetComponent<InputField>();
 
 		this.newConversationButton = this.talksScreen.Find("New Conversation").GetComponent<Button>();
         this.newConversationButton.onClick.AddListener(delegate(){
