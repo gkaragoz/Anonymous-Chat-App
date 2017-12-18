@@ -11,6 +11,8 @@ using ARW.Com;
 using ARW.Requests;
 using ARW.Events;
 
+using MaterialUI;
+
 public class AppManager : MonoBehaviour{
 
 	public static AppManager instance;
@@ -37,11 +39,13 @@ public class AppManager : MonoBehaviour{
     public InputField inputEmailOnLogin;
     public InputField inputPasswordOnLogin;
     public InputField inputNickname;
+    public ScreenView screenView;
 
 	private void Start(){
 		instance = this;
 		GameObject canvas = GameObject.Find("Canvas");
 
+		this.screenView = canvas.transform.Find("Screen View").GetComponent<ScreenView>();
         this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
         this.signupButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnSignup").GetComponent<Button>();
         this.registerButton = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/btnStart").GetComponent<Button>();
