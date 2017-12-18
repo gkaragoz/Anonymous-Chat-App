@@ -11,6 +11,7 @@ using ARW.Config;
 using ARW.Users;
 using ARW.Events;
 using ARW.Requests.Extensions;
+using MaterialUI;
 
 public class ServerManager : MonoBehaviour{
 
@@ -93,7 +94,11 @@ public class ServerManager : MonoBehaviour{
 		JSONObject talkJson = new JSONObject(newTalkData);
 		Talk newTalk = new Talk(talkJson);
 
-		if(newTalk.receiverName == "")		return;
+        if (newTalk.receiverName == "")
+        {
+            DialogManager.ShowAlert("Server connection error.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+            return;
+        }
 
 		ChatPanelManager.instance.user.AddTalk(newTalk);
 		ChatPanelManager.instance.InitNewTalk(newTalk);
@@ -107,7 +112,11 @@ public class ServerManager : MonoBehaviour{
 		Message newMessage = new Message(new JSONObject(messageData));
 		Talk currentTalk = ChatPanelManager.instance.user.playerTalks.Where(a=>a.talkId == newMessage.talkId).FirstOrDefault();
 
-		if(currentTalk == null)		return;
+        if (currentTalk == null)
+        {
+            DialogManager.ShowAlert("Server connection error.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+            return;
+        }
 
 		currentTalk.AddMessage(newMessage);
 	}
