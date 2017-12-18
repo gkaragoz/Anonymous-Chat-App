@@ -3,6 +3,11 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+
+using ARW;
+using ARW.Com;
+using ARW.Requests;
+
 public class Talk{
 
 #region Private_Variables
@@ -11,6 +16,7 @@ public class Talk{
 	private string _senderPlayerId;
 	private string _receiverName;
 	private List<Message> _talkMessages;
+	private float tempDelta;
 #endregion
 
 #region Public_Variables
@@ -36,6 +42,7 @@ public class Talk{
 #endregion
 
 	public Talk(JSONObject talkData){
+		this.tempDelta = 0;
 		this._talkMessages = new List<Message>();
 
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
@@ -51,6 +58,13 @@ public class Talk{
 		}
 	}
 
+	public void AddMessage(Message newMsg){
+		this._talkMessages.Add(newMsg);
+
+		float delta = newMsg.InitMessage(this.talkMessages.Length - 1, tempDelta, 640);
+		if(delta > 30)	this.tempDelta += delta;
+	}
+
 	public void EnterTalk(){
 		
 		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
@@ -58,7 +72,6 @@ public class Talk{
 
 		ChatPanelManager.instance.talksScreen.gameObject.SetActive(false);
 
-		float tempDelta = 0;
 		for(int ii = this.talkMessages.Length -1 ; ii >= 0; ii--){
 
 			Message currentMessage = this.talkMessages[ii];
@@ -67,6 +80,21 @@ public class Talk{
 			if( x>30)	tempDelta+= x;
 		}
 		ChatPanelManager.instance.conversationScreen.gameObject.SetActive(true);
+
+		ChatPanelManager.instance.sendMessageInputField.text = String.Empty;
+		ChatPanelManager.instance.sendMessageButton.onClick.RemoveAllListeners();
+		ChatPanelManager.instance.sendMessageButton.onClick.AddListener(delegate(){
+			if(ChatPanelManager.instance.sendMessageInputField.text == "")		return;
+
+			ARWObject obj = new IARWObject();
+			obj.PutString("sender_id", this.senderPlayerId);
+			obj.PutString("body", ChatPanelManager.instance.sendMessageInputField.text);
+			obj.PutString("send_date", System.DateTime.Now.ToString());
+			obj.PutInt("talk_id", this.talkId);
+
+			ARWServer.instance.SendExtensionRequest("SendMessage", obj, false);
+			ChatPanelManager.instance.sendMessageInputField.text = "";
+		});
 	}
 
 	public void CloseTalk(){
