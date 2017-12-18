@@ -41,6 +41,8 @@ public class AppManager : MonoBehaviour{
     public InputField inputNickname;
     public ScreenView screenView;
 
+    public Transform messageObjectParent;
+
 	private void Start(){
 		instance = this;
 		GameObject canvas = GameObject.Find("Canvas");
@@ -54,6 +56,8 @@ public class AppManager : MonoBehaviour{
         this.inputEmailOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputEmail").GetComponent<InputField>();
         this.inputPasswordOnLogin = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/inputPassword").GetComponent<InputField>();
         this.inputNickname = canvas.transform.Find("Screen View/RegisterScreen/pnlRegister/PanelLayer/inputNickname").GetComponent<InputField>();
+
+        this.messageObjectParent = canvas.transform.Find("Screen View/ConversationScreen/Scroll View/Viewport/Content");
 
         new ChatPanelManager(canvas.transform.Find("Screen View/WelcomeScreen"),
             canvas.transform.Find("Screen View/RegisterScreen"),
