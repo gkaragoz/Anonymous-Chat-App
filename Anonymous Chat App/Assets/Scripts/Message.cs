@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Message{
 
@@ -51,11 +52,23 @@ public class Message{
 		this._talkId = int.Parse(messageData.GetString("talk_id"));
 	}
 
-	public void InitMessage(MessagePrefab messageObj, int index){
-		messageObj.isUsing = true;
-		messageObj.msjText.text = this.body;
-		messageObj.transform.SetParent(ChatPanelManager.instance.messagesParent);
-		messageObj.transform.localPosition = new Vector3(0, 0 - 100 * index, 0);
-		messageObj.transform.eulerAngles = Vector3.zero;
+	public float InitMessage(int index, float tempDelta){
+		
+		string prefabPath = this.isMe == true ? "pnlSenderMessage" : "pnlReceiverMessage";
+		Transform messageObj = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/" + prefabPath), Vector3.zero, Quaternion.identity);
+
+		Text msjText = messageObj.Find("PanelLayer/messageContent").GetComponent<Text>();
+		msjText.text = this.body;
+
+		float delta = 35 * msjText.preferredHeight / 25;
+		if(delta >= 30f)
+			messageObj.GetComponent<RectTransform>().sizeDelta += new Vector2(0, delta);
+
+		messageObj.SetParent(AppManager.instance.messageObjectParent);
+		messageObj.localEulerAngles = Vector2.zero;
+		messageObj.localScale = Vector3.one;
+
+		messageObj.localPosition = new Vector3(-600, -tempDelta -90 - 160 * index, 0);
+		return delta;
 	}
 }
