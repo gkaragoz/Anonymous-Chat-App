@@ -92,22 +92,6 @@ public class ChatPanelManager{
 		newConversation.eulerAngles = Vector3.zero;
 	}
 
-	public void OpenConversation(Talk conversation){
-		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
-		AppManager.instance.currentTalk = conversation;
-
-		this.talksScreen.gameObject.SetActive(false);
-		for(int ii = 0; ii < conversation.talkMessages.Length; ii++){
-			Message currentMessage = conversation.talkMessages[ii];
-			if(currentMessage.isMe){
-				currentMessage.InitMessage(MessagesPoolSystem.instance.GetAvaibleMyMessage(), conversation.talkMessages.Length - ii - 1);
-			}else{
-				currentMessage.InitMessage(MessagesPoolSystem.instance.GetAvaibleotherUsersMessage(), conversation.talkMessages.Length - ii - 1);
-			}	
-		}
-		this.conversationScreen.gameObject.SetActive(true);
-	}
-
 	public void OpenTalksScreen(){
 		AppManager.instance.currentTalk.CloseTalk();
 		AppManager.instance.currentTalk = null;
