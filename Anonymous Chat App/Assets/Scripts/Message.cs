@@ -52,7 +52,7 @@ public class Message{
 		this._talkId = int.Parse(messageData.GetString("talk_id"));
 	}
 
-	public float InitMessage(int index, float tempDelta, int offset = 0){
+	public float InitMessage(Talk talk,int index, float tempDelta, int offset = 0){
 		
 		string prefabPath = this.isMe == true ? "pnlSenderMessage" : "pnlReceiverMessage";
 		Transform messageObj = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/" + prefabPath), Vector3.zero, Quaternion.identity);
@@ -69,6 +69,8 @@ public class Message{
 		messageObj.localScale = Vector3.one;
 
 		messageObj.localPosition = new Vector3(-600 + offset, -tempDelta -90 - 160 * index, 0);
+
+		talk.msgObjs.Add(messageObj);
 		return delta;
 	}
 }

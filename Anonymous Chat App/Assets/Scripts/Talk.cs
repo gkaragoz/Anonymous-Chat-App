@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+using UnityEngine;
+using UnityEngine.UI;
 
 using ARW;
 using ARW.Com;
@@ -17,6 +19,8 @@ public class Talk{
 	private string _receiverName;
 	private List<Message> _talkMessages;
 	private float tempDelta;
+
+	public List<Transform> msgObjs;
 #endregion
 
 #region Public_Variables
@@ -43,6 +47,7 @@ public class Talk{
 
 	public Talk(JSONObject talkData){
 		this.tempDelta = 0;
+		this.msgObjs = new List<Transform>();
 		this._talkMessages = new List<Message>();
 
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
@@ -61,7 +66,7 @@ public class Talk{
 	public void AddMessage(Message newMsg){
 		this._talkMessages.Add(newMsg);
 
-		float delta = newMsg.InitMessage(this.talkMessages.Length - 1, tempDelta, 640);
+		float delta = newMsg.InitMessage(this, this.talkMessages.Length - 1, tempDelta, 640);
 		if(delta > 30)	this.tempDelta += delta;
 	}
 
@@ -76,7 +81,7 @@ public class Talk{
 
 			Message currentMessage = this.talkMessages[ii];
 
-			float x = currentMessage.InitMessage(this.talkMessages.Length - ii - 1, tempDelta);
+			float x = currentMessage.InitMessage(this, this.talkMessages.Length - ii - 1, tempDelta);
 			if( x>30)	tempDelta+= x;
 		}
 		ChatPanelManager.instance.conversationScreen.gameObject.SetActive(true);
@@ -95,9 +100,16 @@ public class Talk{
 			ARWServer.instance.SendExtensionRequest("SendMessage", obj, false);
 			ChatPanelManager.instance.sendMessageInputField.text = "";
 		});
+
+		ChatPanelManager.instance.conversationScreen.GetChild(0).GetComponent<ScrollRect>().normalizedPosition = Vector2.zero;
 	}
 
 	public void CloseTalk(){
-		
+		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
+
+		AppManager.instance.currentTalk = null;
+		for(int ii = 0; ii < this.msgObjs.Count; ii++){
+			UnityEngine.MonoBehaviour.Destroy(this.msgObjs[ii]);
+		}
 	}
 }
