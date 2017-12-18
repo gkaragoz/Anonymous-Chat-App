@@ -52,10 +52,24 @@ public class Talk{
 	}
 
 	public void EnterTalk(){
-		ChatPanelManager.instance.OpenConversation(this);
+		
+		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
+		AppManager.instance.currentTalk = this;
+
+		ChatPanelManager.instance.talksScreen.gameObject.SetActive(false);
+
+		float tempDelta = 0;
+		for(int ii = this.talkMessages.Length -1 ; ii >= 0; ii--){
+
+			Message currentMessage = this.talkMessages[ii];
+
+			float x = currentMessage.InitMessage(this.talkMessages.Length - ii - 1, tempDelta);
+			if( x>30)	tempDelta+= x;
+		}
+		ChatPanelManager.instance.conversationScreen.gameObject.SetActive(true);
 	}
 
 	public void CloseTalk(){
-		MessagesPoolSystem.instance.Reset();
+		
 	}
 }
