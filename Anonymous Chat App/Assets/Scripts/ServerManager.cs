@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -41,6 +42,8 @@ public class ServerManager : MonoBehaviour{
 		arwServer.AddExtensionRequest(FINDEDCONVERSATION, FindedConversationHandler);
 		arwServer.AddExtensionRequest(CANNOTFINDACTIVEUSER, CannotFindActiveUser);
 		arwServer.AddExtensionRequest("Register", RegisterHandler);
+		arwServer.AddExtensionRequest("SendMessage", SendMessageHandler);
+
 		arwServer.Connect(cfg);
 	}
 
@@ -98,12 +101,22 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log(newTalk.talkId + " : " + newTalk.receiverName + " : " + newTalk.talkMessages.Length);
 	}
 
+	private void SendMessageHandler(ARWObject obj, object value){
+		string messageData = obj.GetString("message_data");
+
+		Message newMessage = new Message(new JSONObject(messageData));
+		Talk currentTalk = ChatPanelManager.instance.user.playerTalks.Where(a=>a.talkId == newMessage.talkId).FirstOrDefault();
+
+		if(currentTalk == null)		return;
+
+		currentTalk.AddMessage(newMessage);
+	}
+
 	private void CannotFindActiveUser(ARWObject obj, object value){
 
 	}
 
-    private void OnApplicationQuit()
-    {
+    private void OnApplicationQuit(){
         arwServer.Disconnection();
     }
 }
