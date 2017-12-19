@@ -45,7 +45,11 @@ public class AppManager : MonoBehaviour{
 
 	private void Start(){
 		instance = this;
-		GameObject canvas = GameObject.Find("Canvas");
+
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+            DialogManager.ShowAlert("Please check your internet connection.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+
+        GameObject canvas = GameObject.Find("Canvas");
 
 		this.screenView = canvas.transform.Find("Screen View").GetComponent<ScreenView>();
         this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
@@ -64,11 +68,21 @@ public class AppManager : MonoBehaviour{
 			canvas.transform.Find("Screen View/TalksScreen"), 
 			canvas.transform.Find("Screen View/ConversationScreen"));
 
-		this.loginButton.onClick.AddListener(delegate(){
-			if(!ServerManager.instance.canLogin)		return;
-
+		this.loginButton.onClick.AddListener(delegate() {
             string email = inputEmailOnLogin.text;
             string password = inputPasswordOnLogin.text;
+
+            if (email.Length <= 0 || password.Length <= 0)
+            {
+                DialogManager.ShowAlert("Please enter your email and password.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+                return;
+            }
+
+            if (!ServerManager.instance.canLogin)
+            {
+                DialogManager.ShowAlert("Server connection error.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+                return;
+            }
 
 			ARWObject obj = new IARWObject();
 			obj.PutString("player_id", email);
@@ -85,6 +99,18 @@ public class AppManager : MonoBehaviour{
             string password = inputPasswordOnSignup.text;
             string email = inputEmailOnSignup.text;
             string language = Application.systemLanguage.ToString();
+
+            if (nickname.Length <= 0 || email.Length <= 0 || password.Length <= 0)
+            {
+                DialogManager.ShowAlert("Please enter your nickname, email and password.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+                return;
+            }
+
+            if (!ServerManager.instance.canLogin)
+            {
+                DialogManager.ShowAlert("Server connection error.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+                return;
+            }
 
             ARWObject obj = new IARWObject();
             obj.PutString("player_id", email);
