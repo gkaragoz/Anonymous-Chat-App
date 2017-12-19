@@ -37,6 +37,7 @@ public class ServerManager : MonoBehaviour{
 		ConfigData cfg = new ConfigData(8081, 9933, "192.168.1.105");
 
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION, OnConnectionSuccess);
+		arwServer.AddEventHandlers(ARWEvents.CONNECTION_LOST, OnConnectionLost);
 		arwServer.AddEventHandlers(ARWEvents.LOGIN, OnLoginSuccess);
 
 		arwServer.AddExtensionRequest(GETUSERDATA, GetUserData);
@@ -58,6 +59,11 @@ public class ServerManager : MonoBehaviour{
 		Debug.Log("Connection Success");
 		AppManager.instance.appStatus = AppManager.AppStatus.Connection;
 		AppManager.instance.screenView.Transition(0);
+	}
+
+	private void OnConnectionLost(ARWObject obj, object value){
+		Debug.Log("Connection Fail");
+		DialogManager.ShowAlert("Please check your internet connection.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
 	}
 
 	private void OnLoginSuccess(ARWObject arwObj, object value){

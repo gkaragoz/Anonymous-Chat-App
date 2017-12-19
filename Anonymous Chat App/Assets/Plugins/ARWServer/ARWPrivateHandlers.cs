@@ -38,13 +38,14 @@ namespace ARW.PrivateHandlers
 		}
 
 		public void P_Connection_Lost(ARWObject arwObject, SpecialRequestParam specialReqParam){
+
 			if(ARWServer.instance == null)		return;
 
 			ARWServer.instance.isConnected = false;
-			if(ARWEvents.DISCONNECTION.handler == null)		return;
+			if(ARWEvents.CONNECTION_LOST.handler == null)		return;
 
 			ARWObject obj = new IARWObject();
-			ARWEvents.DISCONNECTION.handler(obj);
+			ARWEvents.CONNECTION_LOST.handler(obj);
 		}
 
 		public void P_Login(ARWObject obj, SpecialRequestParam specialReqParam){

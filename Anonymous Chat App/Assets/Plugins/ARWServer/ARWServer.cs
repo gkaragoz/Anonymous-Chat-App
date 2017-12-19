@@ -30,6 +30,9 @@ namespace ARW{
 					if(tcpClient != null)	return tcpClient.GetStream();
 				}catch(ObjectDisposedException){
 					return null;
+				}catch(System.Exception){
+					ARWEvents.CONNECTION_LOST.p_handler(null, null);
+					this.tcpClient = null;
 				}
 
 				return null;
