@@ -129,7 +129,7 @@ public class ServerManager : MonoBehaviour{
 	}
 
 	private void CannotFindActiveUser(ARWObject obj, object value){
-
+		DialogManager.ShowAlert("There is no active user in server.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
 	}
 
     private void OnApplicationQuit(){
