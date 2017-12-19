@@ -135,7 +135,17 @@ public class AppManager : MonoBehaviour{
 		Player me = new Player(playerJson);
 		Debug.Log(me.playerName + " : " + me.playerId + " : " + me.playerTalks.Length);
 
-		// new MessagesPoolSystem(poolSystemParent);
+        try{
+            if(me.playerId.Length == 0){
+                Debug.Log("xxxxxxxxx");
+            }
+        }catch(System.NullReferenceException){
+            Debug.Log("Wrong Player Data " + PlayerPrefs.GetString("player_id"));
+            ARWObject obj = new IARWObject();
+            obj.PutString("player_id", PlayerPrefs.GetString("player_id"));
+            ARWServer.instance.SendExtensionRequest("Relogin", null, false);
+            return;
+        }
 		ChatPanelManager.instance.InitPanel(me);
 	}
 
