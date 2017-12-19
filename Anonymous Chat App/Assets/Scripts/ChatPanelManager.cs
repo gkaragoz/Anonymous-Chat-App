@@ -57,6 +57,7 @@ public class ChatPanelManager{
 
 	public void InitPanel(Player user){
 		this.welcomeScreen.gameObject.SetActive(false);
+		this.registerScreen.gameObject.SetActive(false);
 		this.talksScreen.gameObject.SetActive(true);
 		this._user = user;
 
