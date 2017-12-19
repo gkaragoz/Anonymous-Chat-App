@@ -45,7 +45,11 @@ public class AppManager : MonoBehaviour{
 
 	private void Start(){
 		instance = this;
-		GameObject canvas = GameObject.Find("Canvas");
+
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+            DialogManager.ShowAlert("Please check your internet connection.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+
+        GameObject canvas = GameObject.Find("Canvas");
 
 		this.screenView = canvas.transform.Find("Screen View").GetComponent<ScreenView>();
         this.loginButton = canvas.transform.Find("Screen View/WelcomeScreen/pnlWelcome/PanelLayer/btnStart").GetComponent<Button>();
