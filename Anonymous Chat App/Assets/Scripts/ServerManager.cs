@@ -34,7 +34,7 @@ public class ServerManager : MonoBehaviour{
 		arwServer = new ARWServer();
 		arwServer.Init();
 
-		ConfigData cfg = new ConfigData(8081, 9933, "192.168.1.105");
+		ConfigData cfg = new ConfigData(8081, 9933, "165.227.135.227");
 
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION, OnConnectionSuccess);
 		arwServer.AddEventHandlers(ARWEvents.CONNECTION_LOST, OnConnectionLost);
@@ -64,6 +64,7 @@ public class ServerManager : MonoBehaviour{
 	private void OnConnectionLost(ARWObject obj, object value){
 		Debug.Log("Connection Fail");
 		DialogManager.ShowAlert("Please check your internet connection.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+		ChatPanelManager.instance.welcomeScreen.gameObject.SetActive(false);
 	}
 
 	private void OnLoginSuccess(ARWObject arwObj, object value){
