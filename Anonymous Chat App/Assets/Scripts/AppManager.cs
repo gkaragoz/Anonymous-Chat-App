@@ -31,6 +31,7 @@ public class AppManager : MonoBehaviour{
 		CONVERSATION
 	}
 
+    public Transform[] conversationPrefabs;
 	private Button loginButton;
     private Button signupButton;
     private Button registerButton;
@@ -87,7 +88,7 @@ public class AppManager : MonoBehaviour{
 			ARWObject obj = new IARWObject();
 			obj.PutString("player_id", email);
 			obj.PutString("player_password", password);
-
+            Debug.Log("+++++");
 			PlayerPrefs.SetString("player_id", email);
             PlayerPrefs.SetString("player_pass", password);
 			ARWServer.instance.SendExtensionRequest("Login", obj, false);
