@@ -115,15 +115,12 @@ public class ServerManager : MonoBehaviour{
 
 	private void SendMessageHandler(ARWObject obj, object value){
 		string messageData = obj.GetString("message_data");
-
+		Debug.Log(messageData);
 		Message newMessage = new Message(new JSONObject(messageData));
 		Talk currentTalk = ChatPanelManager.instance.user.playerTalks.Where(a=>a.talkId == newMessage.talkId).FirstOrDefault();
+		Debug.Log("=======> " + newMessage.body + " : " + newMessage.talkId);
 
-        if (currentTalk == null)
-        {
-            DialogManager.ShowAlert("Server connection error.", "Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
-            return;
-        }
+		if(currentTalk == null)		return;
 
 		currentTalk.AddMessage(newMessage);
 	}
