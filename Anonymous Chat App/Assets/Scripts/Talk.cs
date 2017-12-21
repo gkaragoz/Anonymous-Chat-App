@@ -88,12 +88,14 @@ public class Talk{
 		if(this.talkMessages.Length!= 0 && this.talkMessages[this.talkMessages.Length-1].senderPlayerId == this.senderPlayerId){
 			this.canISendMsg = false;
 		}
-		for(int ii = this.talkMessages.Length -1 ; ii >= 0; ii--){
+		for(int ii = this.talkMessages.Length ; ii >= 0; ii--){
+			try{
+				Message currentMessage = this.talkMessages[ii];
 
-			Message currentMessage = this.talkMessages[ii];
-
-			float x = currentMessage.InitMessage(this, this.talkMessages.Length - ii - 1, tempDelta);
-			if( x>30)	tempDelta+= x;
+				float x = currentMessage.InitMessage(this, this.talkMessages.Length - ii - 1, tempDelta);
+				if( x>30)	tempDelta+= x;
+			}catch(System.IndexOutOfRangeException){
+			}
 		}
 		ChatPanelManager.instance.conversationScreen.gameObject.SetActive(true);
 
