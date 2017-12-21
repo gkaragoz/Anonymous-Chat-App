@@ -92,7 +92,7 @@ public class Talk{
 			try{
 				Message currentMessage = this.talkMessages[ii];
 
-				float x = currentMessage.InitMessage(this, this.talkMessages.Length - ii - 1, tempDelta);
+				float x = currentMessage.InitMessage(this, ii, tempDelta);
 				if( x>30)	tempDelta+= x;
 			}catch(System.IndexOutOfRangeException){
 			}
