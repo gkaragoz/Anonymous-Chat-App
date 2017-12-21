@@ -20,7 +20,6 @@ public class Talk{
 	private List<Message> _talkMessages;
 	private float tempDelta;
 
-	public List<Transform> msgObjs;
 #endregion
 
 #region Public_Variables
@@ -47,7 +46,6 @@ public class Talk{
 
 	public Talk(JSONObject talkData){
 		this.tempDelta = 0;
-		this.msgObjs = new List<Transform>();
 		this._talkMessages = new List<Message>();
 
 		this._talkId = int.Parse(talkData.GetString("talk_id"));
@@ -65,6 +63,8 @@ public class Talk{
 
 	public void AddMessage(Message newMsg){
 		this._talkMessages.Add(newMsg);
+
+		if(AppManager.instance.currentTalk == null || this.talkId != AppManager.instance.currentTalk.talkId)		return;
 
 		float delta = newMsg.InitMessage(this, this.talkMessages.Length - 1, tempDelta, 640);
 		if(delta > 30)	this.tempDelta += delta;
@@ -97,6 +97,7 @@ public class Talk{
 			obj.PutString("send_date", System.DateTime.Now.ToString());
 			obj.PutInt("talk_id", this.talkId);
 
+			Debug.Log("Sending msj : " + this.talkId + " : " + this.senderPlayerId);
 			ARWServer.instance.SendExtensionRequest("SendMessage", obj, false);
 			ChatPanelManager.instance.sendMessageInputField.text = "";
 		});
@@ -108,8 +109,5 @@ public class Talk{
 		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
 
 		AppManager.instance.currentTalk = null;
-		for(int ii = 0; ii < this.msgObjs.Count; ii++){
-			UnityEngine.MonoBehaviour.Destroy(this.msgObjs[ii]);
-		}
 	}
 }
