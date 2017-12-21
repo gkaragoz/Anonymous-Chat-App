@@ -23,6 +23,7 @@ public class ChatPanelManager{
 	public Transform talksScreen;
 	public Transform welcomeScreen;
 	public Transform conversationScreen;
+	public Transform currentTalkText;
 
 	private Transform talksContentParent;
 	private Button newConversationButton;
@@ -43,7 +44,8 @@ public class ChatPanelManager{
 
 		this.sendMessageButton = this.conversationScreen.Find("pnlSendMessage/PanelLayer/btnSendMessage").GetComponent<Button>();
 		this.sendMessageInputField = this.conversationScreen.Find("pnlSendMessage/PanelLayer/inputMessage").GetComponent<InputField>();
-
+		this.currentTalkText = this.conversationScreen.Find("txtTalksName");
+		
 		this.newConversationButton = this.talksScreen.Find("New Conversation").GetComponent<Button>();
         this.newConversationButton.onClick.AddListener(delegate(){
 			ARWObject obj = new IARWObject();
@@ -71,18 +73,17 @@ public class ChatPanelManager{
 
 		AppManager.instance.appStatus = AppManager.AppStatus.TALK_SCREEN;
 
-		for(int ii = 0; ii < this.user.playerTalks.Length; ii++){
-			Talk currentTalk = this.user.playerTalks[ii];
-			Transform newConversation = (Transform)MonoBehaviour.Instantiate(Resources.Load<Transform>("Talks/Conversation"));
-			newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
-			newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = currentTalk.receiverName;
-			newConversation.SetParent(this.talksContentParent);
-			newConversation.localPosition = Vector3.zero + new Vector3(0,-200 * ii, 0);
-
-			newConversation.localPosition += new Vector3(xOffset, -150,0);
-
-			newConversation.localScale = Vector3.one;
-			newConversation.eulerAngles = Vector3.zero;
+		int talksCount = this.user.playerTalks.Length;
+		for(int ii = 0; ii < AppManager.instance.conversationPrefabs.Length; ii++){
+			Transform newConversation = AppManager.instance.conversationPrefabs[ii];
+			if(ii >= talksCount){
+				newConversation.gameObject.SetActive(false);
+			}else{
+				Talk currentTalk = this.user.playerTalks[ii];
+				newConversation.gameObject.SetActive(true);
+				newConversation.Find("PanelLayer/btnStartTalk").GetComponent<Button>().onClick.AddListener(currentTalk.EnterTalk);
+				newConversation.Find("PanelLayer/txtNickname").GetComponent<Text>().text = currentTalk.receiverName;
+			}
 		}
 	}
 
