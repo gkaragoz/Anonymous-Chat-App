@@ -146,13 +146,23 @@ public class AppManager : MonoBehaviour{
             ARWServer.instance.SendExtensionRequest("Relogin", null, false);
             return;
         }
+
+        foreach(Talk t in me.playerTalks){
+            Debug.Log(t.receiverName + " : " + t.talkId);
+        }
+
 		ChatPanelManager.instance.InitPanel(me);
 	}
 
 	private void FixedUpdate(){
 		if(this.appStatus == AppStatus.CONVERSATION){
 			if(Input.GetKeyDown(KeyCode.Escape) && this.currentTalk != null){
-				ChatPanelManager.instance.OpenTalksScreen();
+                if(this.currentTalk != null){
+                    for(int ii = 0; ii< this.messageObjectParent.GetChildCount(); ii++){
+                        Destroy(this.messageObjectParent.GetChild(ii).gameObject);
+                    }
+                }
+                ChatPanelManager.instance.OpenTalksScreen();
 			}
 		}
 	}
