@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using MaterialUI;
+
 using ARW;
 using ARW.Com;
 using ARW.Requests;
@@ -42,6 +44,8 @@ public class Talk{
 	public Message[] talkMessages{
 		get{	return _talkMessages.OrderByDescending(a=>a.sendDate).ToArray();	}
 	}
+
+	public bool canISendMsg = true;
 #endregion
 
 	public Talk(JSONObject talkData){
@@ -64,6 +68,10 @@ public class Talk{
 	public void AddMessage(Message newMsg){
 		this._talkMessages.Add(newMsg);
 
+		if(newMsg.senderPlayerId != this.senderPlayerId){
+			this.canISendMsg = true;
+		}
+
 		if(AppManager.instance.currentTalk == null || this.talkId != AppManager.instance.currentTalk.talkId)		return;
 
 		float delta = newMsg.InitMessage(this, this.talkMessages.Length - 1, tempDelta, 640);
@@ -71,12 +79,15 @@ public class Talk{
 	}
 
 	public void EnterTalk(){
-		
+		ChatPanelManager.instance.currentTalkText.GetComponent<Text>().text = this.receiverName;
 		AppManager.instance.appStatus = AppManager.AppStatus.CONVERSATION;
 		AppManager.instance.currentTalk = this;
 
 		ChatPanelManager.instance.talksScreen.gameObject.SetActive(false);
 
+		if(this.talkMessages.Length == 1 && this.talkMessages[0].senderPlayerId == ChatPanelManager.instance.user.playerId){
+			this.canISendMsg = false;
+		}
 		for(int ii = this.talkMessages.Length -1 ; ii >= 0; ii--){
 
 			Message currentMessage = this.talkMessages[ii];
@@ -91,6 +102,11 @@ public class Talk{
 		ChatPanelManager.instance.sendMessageButton.onClick.AddListener(delegate(){
 			if(ChatPanelManager.instance.sendMessageInputField.text == "")		return;
 
+			if(!this.canISendMsg){
+				DialogManager.ShowAlert("You can not send more messages. Please wait response.", "Spam Alert!", MaterialIconHelper.GetIcon(MaterialIconEnum.ADD_ALERT));
+				return;
+			}
+
 			ARWObject obj = new IARWObject();
 			obj.PutString("sender_id", this.senderPlayerId);
 			obj.PutString("body", ChatPanelManager.instance.sendMessageInputField.text);
@@ -100,6 +116,10 @@ public class Talk{
 			Debug.Log("Sending msj : " + this.talkId + " : " + this.senderPlayerId);
 			ARWServer.instance.SendExtensionRequest("SendMessage", obj, false);
 			ChatPanelManager.instance.sendMessageInputField.text = "";
+
+			if(this.talkMessages.Length == 0 && this.senderPlayerId == ChatPanelManager.instance.user.playerId){
+				this.canISendMsg = false;
+			}
 		});
 
 		ChatPanelManager.instance.conversationScreen.GetChild(0).GetComponent<ScrollRect>().normalizedPosition = Vector2.zero;
