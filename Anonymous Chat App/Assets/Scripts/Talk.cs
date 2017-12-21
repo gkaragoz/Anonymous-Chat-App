@@ -42,7 +42,7 @@ public class Talk{
 	}
 
 	public Message[] talkMessages{
-		get{	return _talkMessages.OrderByDescending(a=>a.sendDate).ToArray();	}
+		get{	return _talkMessages.OrderBy(a=>a.sendDate).ToArray();	}
 	}
 
 	public bool canISendMsg = true;
@@ -85,7 +85,7 @@ public class Talk{
 
 		ChatPanelManager.instance.talksScreen.gameObject.SetActive(false);
 
-		if(this.talkMessages.Length == 1 && this.talkMessages[0].senderPlayerId == ChatPanelManager.instance.user.playerId){
+		if(this.talkMessages.Length!= 0 && this.talkMessages[this.talkMessages.Length-1].senderPlayerId == this.senderPlayerId){
 			this.canISendMsg = false;
 		}
 		for(int ii = this.talkMessages.Length -1 ; ii >= 0; ii--){
@@ -117,9 +117,7 @@ public class Talk{
 			ARWServer.instance.SendExtensionRequest("SendMessage", obj, false);
 			ChatPanelManager.instance.sendMessageInputField.text = "";
 
-			if(this.talkMessages.Length == 0 && this.senderPlayerId == ChatPanelManager.instance.user.playerId){
-				this.canISendMsg = false;
-			}
+			this.canISendMsg = false;
 		});
 
 		ChatPanelManager.instance.conversationScreen.GetChild(0).GetComponent<ScrollRect>().normalizedPosition = Vector2.zero;
