@@ -1,0 +1,66 @@
+{
+	"player_id": 0,
+	"player_nickname": "Umut",
+	"language": "Turkish",
+	"created_date": "12/3/2017 4:50:15 PM",
+	"player_talks":[
+		{
+			"talk_id": 0,
+			"receiver_id": 1,
+			"receiver_name":"Gokhan",
+			"sender_id": 0,
+			"talk_messages":[
+				{
+					"message_id": 0,
+					"body": "Hoppp",
+					"send_date": "12/3/2017 4:57:15 PM",
+					"sender_id": 0,
+					"talk_id": 0
+				},
+				{
+					"message_id": 1,
+					"body": "Helooo",
+					"send_date": "12/3/2017 4:58:15 PM",
+					"sender_id": 1,
+					"talk_id": 0
+				},
+				{
+					"message_id": 2,
+					"body": "Hacı naber",
+					"send_date": "12/3/2017 4:59:22 PM",
+					"sender_id": 0,
+					"talk_id": 0
+				},
+				{
+					"message_id": 3,
+					"body": "Ne olsun gülüm seni sormalı",
+					"send_date": "12/3/2017 5:01:15 PM",
+					"sender_id": 1,
+					"talk_id": 0
+				}
+			]
+		},
+		{
+			"talk_id": 1,
+			"receiver_id": 1,
+			"receiver_name":"Mustafa",
+			"sender_id": 0,
+			"talk_messages":[
+				{
+					"message_id": 0,
+					"body": "Hoppp",
+					"send_date": "12/3/2017 4:57:15 PM",
+					"sender_id": 0,
+					"talk_id": 0
+				},
+				{
+					"message_id": 1,
+					"body": "Hacı naber",
+					"send_date": "12/3/2017 4:57:22 PM",
+					"sender_id": 0,
+					"talk_id": 0
+				}
+			]
+		}
+	]
+}
