@@ -70,7 +70,6 @@ public class Message{
 
 		messageObj.localPosition = new Vector3(-600 + offset, -tempDelta -90 - 160 * index, 0);
 
-		talk.msgObjs.Add(messageObj);
 		return delta;
 	}
 }
