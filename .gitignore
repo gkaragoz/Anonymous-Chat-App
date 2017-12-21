@@ -13,3 +13,6 @@ VSCode/
 *.DS_Store
 */*.DS_Store
 *.userprefs
+*/UnityPackageManager/
+*.apk
+Assets/Plugins/Android/gpgs-plugin-support-0.9.42/
